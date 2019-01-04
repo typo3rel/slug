@@ -69,11 +69,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
     
     /**
-     * action exists
+     * function slugExists
      *
      * @return void
      */
-    public function existsAction(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function slugExists(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
     {
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
@@ -87,7 +87,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ->fetchColumn(0);
         $response->getBody()->write($result);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
-      
     }
     
     /**
