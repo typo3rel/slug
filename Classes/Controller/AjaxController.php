@@ -42,9 +42,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             )
             ->set('slug',$queryParams['slug']) // Function "createNamedParameter" is NOT needed here!
             ->execute();
-         
-        $output = 'Slug: '.$queryParams['slug'];
-        $response->getBody()->write($output);
+        $response->getBody()->write($statement);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
     
