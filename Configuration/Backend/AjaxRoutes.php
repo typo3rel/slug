@@ -14,7 +14,7 @@ return [
     ],
     'slugExists' => [
         'path' => '/slug/exists',
-        'target' => Controller\AjaxController::class . '::existsAction'
+        'target' => Controller\AjaxController::class . '::slugExists'
     ],
     'generatePageSlug' => [
         'path' => '/slug/generate',
