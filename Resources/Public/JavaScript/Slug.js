@@ -127,7 +127,12 @@ jQuery(document).ready(function(){
                 slug : slug
             },
             success: function(response) {
-                top.TYPO3.Notification.success(slugNotes['notes.success.saved'], response);
+                if(response === '1'){
+                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], slug);
+                }
+                else{
+                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], slug);
+                }
                 btn.prop('disabled', false);
                 field.prop('disabled', false);
                 field.removeClass('has-been-changed');
