@@ -7,7 +7,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Slug',
     'description' => 'Helps you managing the URL slugs of your TYPO3 site.',
-    'category' => 'plugin',
+    'category' => 'module',
     'author' => 'Simon Köhler',
     'author_email' => 'info@simon-koehler.com',
     'state' => 'beta',
