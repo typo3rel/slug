@@ -1,0 +1,70 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:be.container>
+
+        <f:be.pageRenderer 
+            includeCssFiles="{1: '{f:uri.resource(path:\'Css/Backend.min.css\')}'}" 
+            includeJsFiles="{1: '{f:uri.resource(path:\'Libs/jquery-3.1.1.min.js\')}', 2:'{f:uri.resource(path:\'JavaScript/Slug.js\')}'}" 
+            />
+
+            <div class="typo3-fullDoc">
+
+                <div id="typo3-docheader">
+                    <div class="typo3-docheader-functions">
+                        <div class="left">
+                            
+                        </div>
+                        <div class="right">
+                            
+                        </div>
+                    </div>
+                    <div class="typo3-docheader-buttons">
+                        <div class="left">
+                                
+                        </div>
+                        <div class="right">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="typo3-docbody">
+                    <div id="typo3-inner-docbody">
+                        <f:flashMessages />
+                        <f:render section="content" />
+                        <hr>
+                        &copy; 2018 by <a href="https://simon-koehler.com/?pk_campaign=slug&pk_kwd=slug&pk_source=TYPO3-Extension" target="_blank">Simon Köhler</a> | <a href="#" data-toggle="modal" data-target="#modal-extension-info">Info</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-extension-info" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Extension Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>This extension is developed by <a href="https://www.linkedin.com/in/typo3-freelancer/" target="_blank">Simon Köhler</a>. If you want to support the development with a donation, you can do this with PayPal via the link below.</p>
+                            <p>Future tasks:</p>
+                            <ul>
+                                <li>Add function for Slug mass update</li>
+                                <li>Set up page module with tree structure</li>
+                                <li>General improvements</li>
+                                <li>Translation into other languages (currently DE, EN, ES)</li>
+                            </ul>
+                            <p>
+                                <a class="btn btn-warning btn-lg" href="https://PayPal.Me/typo3freelancer" target="_blank"><i class="fa fa-paypal"></i> Support Development</a>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+    </f:be.container>
+</html>

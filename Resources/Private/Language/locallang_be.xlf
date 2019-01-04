@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-24T09:35:38Z" product-name="slug">
+		<header/>
+		<body>
+			<trans-unit id="default.maxentries">
+				<source>Default max entries</source>
+			</trans-unit>
+			<trans-unit id="default.orderby">
+				<source>Default order by field</source>
+			</trans-unit>
+			<trans-unit id="default.order">
+				<source>Default order</source>
+			</trans-unit>
+                        
+                        <trans-unit id="news.maxentries">
+				<source>Default max entries for News records</source>
+			</trans-unit>
+			<trans-unit id="news.orderby">
+				<source>Default order by field for News records</source>
+			</trans-unit>
+			<trans-unit id="news.order">
+				<source>Default order for News records</source>
+			</trans-unit>
+			<trans-unit id="news.enabled">
+				<source>News enabled</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
