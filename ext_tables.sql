@@ -1,4 +1,3 @@
-#
 # This extra field for the 'pages' table is used to create a 
 # checkbox in the page properties, directly next to the slug 
 # input field. If this is activated, the slug can no longer 
