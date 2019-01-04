@@ -8,10 +8,15 @@ use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 
-/* 
- * This file was created by Simon Köhler
- * at GOCHILLA s.a.
- * www.gochilla.com
+/**
+ * Ajax class for slug module
+ *
+ * This class contains all functions to perform the ajax requests
+ *
+ * @category   Module
+ * @package    Slug
+ * @author     Simon Köhler <info@simon-koehler.com>
+ * @copyright  2018-2019 GOCHILLA s.a.
  */
 
 class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
@@ -22,7 +27,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $helper;
     
     /**
-     * action savePageSlug
+     * function savePageSlug
      *
      * @return void
      */
@@ -44,7 +49,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
     
     /**
-     * action saveNewsSlug
+     * function saveNewsSlug
      *
      * @return void
      */
@@ -59,9 +64,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             )
             ->set('path_segment',$queryParams['slug']) // Function "createNamedParameter" is NOT needed here!
             ->execute();
-         
-        $output = 'Path Segment: '.$queryParams['slug'];
-        $response->getBody()->write($output);
+        $response->getBody()->write($statement);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
     
@@ -88,7 +91,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
     
     /**
-     * action generatePageSlug
+     * function generatePageSlug
      *
      * @return void
      */
@@ -116,7 +119,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
     
     /**
-     * action generateNewsSlug
+     * function generateNewsSlug
      *
      * @return void
      */
@@ -141,71 +144,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $response->getBody()->write($slug);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
       
-    }
-    
-    /**
-     * action getPageInfo
-     *
-     * @return void
-     */
-    public function getPageInfo(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
-    {
-        $queryParams = $request->getQueryParams();
-        
-        switch ($queryParams['type']) {
-            case 'page':
-                $response->getBody()->write($this->googlePreview($queryParams['uid']));
-            break;
-            case 'news':
-                $response->getBody()->write($this->getNewsRecordInfo($queryParams['uid']));
-            break;
-            default:
-                $response->getBody()->write('Hello World');
-            break;
-        }
-        
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
-      
-    }
-    
-    private function googlePreview($uid) {
-        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
-        $statement = $queryBuilder
-            ->select('*')
-            ->from('pages')
-            ->where(
-               $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid))
-            )
-            ->execute();
-        while ($row = $statement->fetch()) {
-            $isocode = $this->helper->getIsoCodeByLanguageUid($row['sys_language_uid']);
-            if($isocode !== ''){
-                $row['isocode'] = '/'.$isocode;
-            }
-            $output  = '<div class="google-preview"><a href="#">';
-            $output .= '<h3 class="main">'.($row['seo_title'] ?: $row['title']).'</h3>';
-            $output .= '<div class="url">'.$row['isocode'].$row['slug'].'</div>';
-            $output .= '</a><div class="text">'.($row['description'] ?: 'Lorem Ipsum dolor sit ahmet. Esto no es bueno cuando tu haces cosas malas.').'</div></div>';
-            return $output;
-        }
-        
-    }
-    
-    private function getNewsRecordInfo($uid) {
-        
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
-        $statement = $queryBuilder
-            ->select('*')
-            ->from('tx_news_domain_model_news')
-            ->where(
-               $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid))
-            )
-            ->execute();
-        while ($row = $statement->fetch()) {
-           return $row;
-        }
-        
     }
     
 }
