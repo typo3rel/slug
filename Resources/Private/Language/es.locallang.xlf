@@ -127,6 +127,34 @@
 				<target>Acción</target>
 			</trans-unit>
                         
+                        <trans-unit id="filter.form.select.option.creation_date">
+				<target>Fecha de creación</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.title">
+				<target>Titulo</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.slug">
+				<target>Slug</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.path_segment">
+				<target>Path Segment</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.sys_language_uid">
+				<target>Idioma</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.is_siteroot">
+				<target>Site Root</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.doktype">
+				<target>Doktype</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.descending">
+				<target>Descendiendo</target>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.ascending">
+				<target>Ascendente</target>
+			</trans-unit>
+                        
                     
 			<trans-unit id="tx_slug_domain_model_page">
 				<target>Página</target>
