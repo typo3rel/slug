@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.10] - 2019-01-05 (currently in development!)
+## [1.0.10] - 2019-01-05 (currently in development)
 
 ### Changed
 - Removed some files that are no longer in use
@@ -20,13 +20,11 @@ All notable changes to this project will be documented in this file.
 - Section 'Known Problems' to the README.md file
 - More stable check for the News module. First checks if module is active, then if News table exists
 
+
 ## [1.0.9] - 2019-01-04
 
-### Changed
-- Small bugfixes
-- Documentation added
-
 ### Added
+- Small bugfixes
 - Basic documentation skeleton added, will be continued soon
 
 
@@ -50,6 +48,7 @@ All notable changes to this project will be documented in this file.
 - Added labels for select menus in filter, but still not implemented in the frontend
 - Added sorting property 'is_siteroot' to the filter form for pages
 - Added full page URL when page rootpage has a configured site, if not just shows the slug below the title
+
 
 ## [1.0.7] - 2019-01-01
 
