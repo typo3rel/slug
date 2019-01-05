@@ -1,4 +1,4 @@
-# TYPO3 Extension slug
+# TYPO3 Backend Module 'slug'
 Official Repository of the 'slug' Backend Module for TYPO3 9.5
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/typo3freelancer/5)
