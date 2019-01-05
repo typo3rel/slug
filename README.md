@@ -24,3 +24,9 @@ Please use the latest version from the official TYPO3 repository (https://extens
 
 - Download the latest version here: https://extensions.typo3.org/extension/slug/ or install it with the extension manager of your TYPO3 installation
 - No further configuration is required, but you should delete all the backend caches after installation to make sure the extension is working properly.
+
+## 3. Known problems
+
+### Slug generation for News records failed?
+
+- If a news record has no pid set in the database, the slug generation will fail. This may happen when you have imported news records from a third party extension or manually. Solution: Check, if all entries in the table 'tx_news_domain_model_news' have the field 'pid' set to a page or folder in the page tree.
