@@ -269,6 +269,10 @@ jQuery(document).ready(function(){
         slugExists($(this).val());
     });
     
+    $('input.slug-input-news').change(function(){
+        $(this).addClass('has-been-changed');
+    });
+    
     // Update all dynamic URLs when the slug textfield has been changed
     $('input.slug-input').keyup(function(){
         updateDynamicPageUrls($(this).data('uid'),$(this).val());
