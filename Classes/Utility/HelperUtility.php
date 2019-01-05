@@ -74,4 +74,8 @@ class HelperUtility {
     }
     
     
+    public function getLangKey($key) {
+        return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key,'slug');
+    }
+    
 }
