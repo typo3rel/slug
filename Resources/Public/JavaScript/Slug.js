@@ -166,69 +166,103 @@ jQuery(document).ready(function(){
     
     $('button.generateAllPageSlugs').on({
         click: function(){
-            var timer = 0;
-            $(this,'button.saveAllPageSlugs').prop('disabled', true);
-            $('button.generatePageSlug').each(function(){
-                var btn = $(this);
+            if(confirm('Do you really want to re-generate all slugs?') === true){
+                var timer = 0;
+                $(this,'button.saveAllPageSlugs').prop('disabled', true);
+                    $('button.saveAllPageSlugs').prop('disabled', true);
+                $('button.generatePageSlug').each(function(){
+                    var btn = $(this);
+                    setTimeout(function() {
+                        btn.trigger('click');
+                    }, (timer*1000));
+                    timer++;
+                });
                 setTimeout(function() {
-                    btn.trigger('click');
+                    $('button.generateAllPageSlugs').prop('disabled', false);
+                    $('button.saveAllPageSlugs').prop('disabled', false);
+                    top.TYPO3.Notification.success('Done!', 'Bulk generation done');
                 }, (timer*1000));
-                timer++;
-            });
-            setTimeout(function() {
-                $('button.generateAllPageSlugs','button.saveAllPageSlugs').prop('disabled', false);
-            }, (timer*1000));
+            }
+            else{
+                top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
+            }
+            
         }
     });
     
     $('button.saveAllPageSlugs').on({
         click: function(){
-            var timer = 0;
-            $(this).prop('disabled', true);
-            $('button.savePageSlug').each(function(){
-                var btn = $(this);
+            if(confirm('Do you really want to save/overwrite all slugs?') === true){
+                var timer = 0;
+                $(this).prop('disabled', true);
+                $('button.generateAllPageSlugs').prop('disabled', true);
+                $('button.savePageSlug').each(function(){
+                    var btn = $(this);
+                    setTimeout(function() {
+                        btn.trigger('click');
+                    }, (timer*500));
+                    timer++;
+                });
                 setTimeout(function() {
-                    btn.trigger('click');
-                }, (timer*1000));
-                timer++;
-            });
-            setTimeout(function() {
-                $('button.saveAllPageSlugs').prop('disabled', false);
-            }, (timer*1000));
+                    $('button.saveAllPageSlugs').prop('disabled', false);
+                    $('button.generateAllPageSlugs').prop('disabled', false);
+                    top.TYPO3.Notification.success('Done!', 'Bulk saving done');
+                }, (timer*500));
+            }
+            else{
+                top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
+            }
         }
     });
     
     $('button.generateAllNewsSlugs').on({
         click: function(){
-            var timer = 0;
-            $(this,'button.saveAllNewsSlugs').prop('disabled', true);
-            $('button.generateNewsSlug').each(function(){
-                var btn = $(this);
+            if(confirm('Do you really want to re-generate all slugs?') === true){
+                var timer = 0;
+                $(this).prop('disabled', true);
+                $('button.saveAllNewsSlugs').prop('disabled', true);
+                $('button.generateNewsSlug').each(function(){
+                    console.log('timer: '+timer);
+                    var btn = $(this);
+                    setTimeout(function() {
+                        btn.trigger('click');
+                    }, (timer*1000));
+                    timer++;
+                });
                 setTimeout(function() {
-                    btn.trigger('click');
+                    $('button.generateAllNewsSlugs').prop('disabled', false);
+                    $('button.saveAllNewsSlugs').prop('disabled', false);
+                    top.TYPO3.Notification.success('Done!', 'Bulk generation done');
                 }, (timer*1000));
-                timer++;
-            });
-            setTimeout(function() {
-                $('button.generateAllNewsSlugs','button.saveAllNewsSlugs').prop('disabled', false);
-            }, (timer*1000));
+            }
+            else{
+                top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
+            }
         }
     });
     
     $('button.saveAllNewsSlugs').on({
         click: function(){
-            var timer = 0;
-            $(this).prop('disabled', true);
-            $('button.saveNewsSlug').each(function(){
-                var btn = $(this);
+            if(confirm('Do you really want to save all slugs?') === true){
+                var timer = 0;
+                $(this).prop('disabled', true);
+                $('button.generateAllNewsSlugs').prop('disabled', true);
+                $('button.saveNewsSlug').each(function(){
+                    var btn = $(this);
+                    setTimeout(function() {
+                        btn.trigger('click');
+                    }, (timer*1000));
+                    timer++;
+                });
                 setTimeout(function() {
-                    btn.trigger('click');
+                    $('button.saveAllNewsSlugs').prop('disabled', false);
+                    $('button.generateAllNewsSlugs').prop('disabled', false);
+                    top.TYPO3.Notification.success('Done!', 'Bulk saving done');
                 }, (timer*1000));
-                timer++;
-            });
-            setTimeout(function() {
-                $('button.saveAllNewsSlugs').prop('disabled', false);
-            }, (timer*1000));
+            }
+            else{
+                top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
+            }
         }
     });
         
