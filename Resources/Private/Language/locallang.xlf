@@ -141,8 +141,20 @@
                         <trans-unit id="filter.form.select.option.path_segment">
 				<source>Path Segment</source>
 			</trans-unit>
-                        <trans-unit id="filter.form.select.sys_language_uid">
+                        <trans-unit id="filter.form.select.option.sys_language_uid">
 				<source>Language</source>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.is_siteroot">
+				<source>Site Root</source>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.doktype">
+				<source>Doktype</source>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.descending">
+				<source>Descending</source>
+			</trans-unit>
+                        <trans-unit id="filter.form.select.option.ascending">
+				<source>Ascending</source>
 			</trans-unit>
                         
                         
