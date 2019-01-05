@@ -17,8 +17,8 @@ All notable changes to this project will be documented in this file.
 - More stable check for the News module. First checks if module is active, then if News table exists
 - Comparison of original News slug and freshly generated News slug
 - Notification if the freshly generated slug is still the same like before
-- Different templates for different page types
-- Language labels for record info output in the pages list
+- Switch statement in List.html template to show different partials for record previews in the Pages list
+- Language labels for record previews in the Pages list
 - Section 'Known Problems' to the README.md file
 - Input fields for news record slugs are now also highlighted when changed, analogous to the page records
 - News icon for the button in the top right corner
