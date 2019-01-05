@@ -12,6 +12,10 @@
 			<trans-unit id="default.order">
 				<source>Default order</source>
 			</trans-unit>
+			<trans-unit id="default.recordInfoEnabled">
+				<source>Enable additional record information</source>
+			</trans-unit>
+                        
                         
                         <trans-unit id="news.maxentries">
 				<source>Default max entries for News records</source>
