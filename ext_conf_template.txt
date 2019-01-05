@@ -10,6 +10,8 @@ defaultOrderBy = crdate
 # cat=defaults; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:default.order
 defaultOrder = DESC
 
+# cat=defaults; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:default.recordInfoEnabled
+recordInfoEnabled = 0
 
 # cat=news; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.enabled
 newsEnabled = 0
