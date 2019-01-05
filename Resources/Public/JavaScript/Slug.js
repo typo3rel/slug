@@ -181,6 +181,23 @@ jQuery(document).ready(function(){
         }
     });
     
+    $('button.saveAllPageSlugs').on({
+        click: function(){
+            var timer = 0;
+            $(this).prop('disabled', true);
+            $('button.savePageSlug').each(function(){
+                var btn = $(this);
+                setTimeout(function() {
+                    btn.trigger('click');
+                }, (timer*1000));
+                timer++;
+            });
+            setTimeout(function() {
+                $('button.saveAllPageSlugs').prop('disabled', false);
+            }, (timer*1000));
+        }
+    });
+    
     $('button.generateAllNewsSlugs').on({
         click: function(){
             var timer = 0;
