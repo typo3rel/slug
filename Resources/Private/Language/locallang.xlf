@@ -146,7 +146,6 @@
 			</trans-unit>
                         
                         
-                        
 			<trans-unit id="tx_slug_domain_model_page">
 				<source>Page</source>
 			</trans-unit>
@@ -154,6 +153,10 @@
 				<source>Slug Lock</source>
 			</trans-unit>
                         
+                        
+                        <trans-unit id="recordinfo.no_info_available">
+				<source>No information available for this record</source>
+			</trans-unit>
                         
 		</body>
 	</file>
