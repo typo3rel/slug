@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.10] - 2019-01-05 (currently in development)
+## [1.0.10] - 2019-01-05
 
 ### Changed
 - Removed some files that are no longer in use
