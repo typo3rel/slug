@@ -30,3 +30,7 @@ Please use the latest version from the official TYPO3 repository (https://extens
 ### Slug generation for News records failed?
 
 - If a news record has no pid set in the database, the slug generation will fail. This may happen when you have imported news records from a third party extension or manually. Solution: Check, if all entries in the table 'tx_news_domain_model_news' have the field 'pid' set to a page or folder in the page tree.
+
+## 4. Want to report an issue?
+
+- https://github.com/koehlersimon/slug/issues
