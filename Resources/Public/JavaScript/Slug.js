@@ -106,7 +106,12 @@ jQuery(document).ready(function(){
             },
             success: function(response) {
                 $('#generateNewsSlug-'+uid).prop('disabled', false);
-                $('.slug-input-news.news-'+uid).val(response);
+                if($('.slug-input-news.news-'+uid).val() === response){
+                    top.TYPO3.Notification.info('No changes','The generated slug is the same like the original...');
+                }
+                else{
+                    $('.slug-input-news.news-'+uid).val(response);
+                }
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
