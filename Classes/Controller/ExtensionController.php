@@ -48,6 +48,37 @@ class ExtensionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $filterVariables['key'] = '';
         }
         
+        // Set the order by options for fluid viewhelper f:form.switch
+        $filterOptions['orderby'] = [
+            ['value' => 'crdate', 'label' => $this->helper->getLangKey('filter.form.select.option.creation_date')],
+            ['value' => 'title', 'label' => $this->helper->getLangKey('filter.form.select.option.title')],
+            ['value' => 'path_segment', 'label' => $this->helper->getLangKey('filter.form.select.option.path_segment')],
+            ['value' => 'sys_language_uid', 'label' => $this->helper->getLangKey('filter.form.select.option.sys_language_uid')],
+        ];
+        
+        $filterOptions['order'] = [
+            ['value' => 'DESC', 'label' => $this->helper->getLangKey('filter.form.select.option.descending')],
+            ['value' => 'ASC', 'label' => $this->helper->getLangKey('filter.form.select.option.ascending')]
+        ];
+        
+        $filterOptions['maxentries'] = [
+            ['value' => '10', 'label' => '10'],
+            ['value' => '20', 'label' => '20'],
+            ['value' => '30', 'label' => '30'],
+            ['value' => '40', 'label' => '40'],
+            ['value' => '50', 'label' => '50'],
+            ['value' => '60', 'label' => '60'],
+            ['value' => '70', 'label' => '70'],
+            ['value' => '80', 'label' => '80'],
+            ['value' => '90', 'label' => '90'],
+            ['value' => '100', 'label' => '100'],
+            ['value' => '150', 'label' => '150'],
+            ['value' => '200', 'label' => '200'],
+            ['value' => '300', 'label' => '300'],
+            ['value' => '400', 'label' => '400'],
+            ['value' => '500', 'label' => '500']
+        ];
+        
         // Checks first if the news table exists, then if the module is active
         if(!$backendConfiguration['newsEnabled']){
             $this->view->assignMultiple([
@@ -64,6 +95,7 @@ class ExtensionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         else{
             $this->view->assignMultiple([
                 'filter' => $filterVariables,
+                'filterOptions' => $filterOptions,
                 'newsRecords' => $this->extensionRepository->getNewsList($filterVariables),
                 'extEmconf' => $this->helper->getEmConfiguration('slug')
             ]);
