@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-3">
                 <h6>{f:translate(key:'filter.form.label.order_by', extensionName: slug)}</h6>
-                <f:form.select value="{filter.orderby}" name="filter[orderby]" options="{crdate:'crdate',title:'title',slug:'slug',sys_language_uid:'sys_language_uid',is_siteroot:'is_siteroot'}" class="form-control"/>
+                <f:form.select value="{filter.orderby}" name="filter[orderby]" options="{orderbyOptions}" optionValueField="value" optionLabelField="label" class="form-control"/>
             </div>
             <div class="col-sm-2">
                 <h6>{f:translate(key:'filter.form.label.order', extensionName: slug)}</h6>
