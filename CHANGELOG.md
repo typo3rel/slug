@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.11] - 2019-01-06
+## [1.0.11] - 2019-01-06 (In progress! Please use the official repository version 1.0.10 only!)
 
 ##Changed
 - Code optimizations in List.html and NewsList.html template files
