@@ -35,6 +35,19 @@
 
     <f:widget.paginate objects="{pages}" as="pagesPaginated" configuration="{addQueryStringMethod: 'POST,GET', itemsPerPage: filter.maxentries, insertAbove: 1, maximumNumberOfLinks: 10}">
         <table class="table table-hover">
+            <tr>
+                <th colspan="5" style="text-align: right;">
+                    <div class="btn-group">
+                        <button class="btn btn-default saveAllPageSlugs" title="{f:translate(key:'button.saveall.title', extensionName: slug)}">
+                            <i class="fa fa-save"></i> {f:translate(key:'button.saveall.label', extensionName: slug)}
+                        </button>
+
+                        <button class="btn btn-default generateAllPageSlugs" title="{f:translate(key:'button.generateall.title', extensionName: slug)}">
+                            <i class="fa fa-refresh"></i> {f:translate(key:'button.generateall.label', extensionName: slug)}
+                        </button>
+                    </div>
+                </th>
+            </tr>
             <f:for each="{pagesPaginated}" as="page">
                 <tr>
                     <td title="id={page.uid}">
