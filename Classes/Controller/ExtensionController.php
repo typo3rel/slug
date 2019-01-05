@@ -35,37 +35,37 @@ class ExtensionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     public function newsListAction() {
         
         $tableExists = $this->extensionRepository->checkIfTableExists('tx_news_domain_model_news');
-        
         $backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
         
+        // Check if filter variables are available, otherwise set default values from ExtensionConfiguration
         if($this->request->hasArgument('filter')){
             $filterVariables = $this->request->getArgument('filter');
         }
-        else{
-            // ToDo: Setting default filter variables from configuration!
+        else{ 
             $filterVariables['maxentries'] = $backendConfiguration['newsMaxEntries'];
             $filterVariables['orderby'] = $backendConfiguration['newsOrderBy'];
             $filterVariables['order'] = $backendConfiguration['newsOrder'];
             $filterVariables['key'] = '';
         }
         
-        if($backendConfiguration['newsEnabled']){
+        // Checks first if the news table exists, then if the module is active
+        if(!$backendConfiguration['newsEnabled']){
             $this->view->assignMultiple([
-                'filter' => $filterVariables,
-                'newsRecords' => $this->extensionRepository->getNewsList($filterVariables),
                 'extEmconf' => $this->helper->getEmConfiguration('slug'),
-                'newsEnabled' => $backendConfiguration['newsEnabled'],
-                'tableExists' => $tableExists
+                'message' => 'This module is not activated. Go to: Admin Tools -> Settings -> Extension Configuration and activate the module.'
+            ]);
+        }
+        elseif(!$tableExists){
+            $this->view->assignMultiple([
+                'extEmconf' => $this->helper->getEmConfiguration('slug'),
+                'message' => "Table 'tx_news_domain_model_news' doesn't exist",
             ]);
         }
         else{
             $this->view->assignMultiple([
                 'filter' => $filterVariables,
-                'newsRecords' => array(),
-                'extEmconf' => $this->helper->getEmConfiguration('slug'),
-                'newsEnabled' => $backendConfiguration['newsEnabled'],
-                'tableExists' => $tableExists,
-                'message' => 'This module is not activated. Go to: Admin Tools -> Settings -> Extension Configuration and activate the module. Be careful and make sure to fulfill all requirements!'
+                'newsRecords' => $this->extensionRepository->getNewsList($filterVariables),
+                'extEmconf' => $this->helper->getEmConfiguration('slug')
             ]);
         }
         
