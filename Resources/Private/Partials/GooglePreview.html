@@ -2,10 +2,10 @@
     <h3 class="main">
         <f:if condition="{page.seo_title}">
             <f:then>
-                {page.seo_title} (seo_title)
+                <span title="field={seo_title}">{page.seo_title}</span>
             </f:then>
             <f:else>
-                {page.title} (title)
+                <span title="field={title}">{page.title}</span>
             </f:else>
         </f:if>
     </h3>
