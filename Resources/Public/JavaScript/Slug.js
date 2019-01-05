@@ -164,6 +164,23 @@ jQuery(document).ready(function(){
         $('.dynamic-slug-'+uid).find('.slug').html(slug);
     }
     
+    $('button.generateAllPageSlugs').on({
+        click: function(){
+            var timer = 0;
+            $(this,'button.saveAllPageSlugs').prop('disabled', true);
+            $('button.generatePageSlug').each(function(){
+                var btn = $(this);
+                setTimeout(function() {
+                    btn.trigger('click');
+                }, (timer*1000));
+                timer++;
+            });
+            setTimeout(function() {
+                $('button.generateAllPageSlugs','button.saveAllPageSlugs').prop('disabled', false);
+            }, (timer*1000));
+        }
+    });
+    
     $('button.generateAllNewsSlugs').on({
         click: function(){
             var timer = 0;
