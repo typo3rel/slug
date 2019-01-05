@@ -134,6 +134,11 @@
 			<trans-unit id="tx_slug_domain_model_page.slug_lock">
 				<target>Slug sperren</target>
 			</trans-unit>
+                        
+                        
+                        <trans-unit id="recordinfo.no_info_available">
+				<target>Für diesen Datensatz stehen derzeit keine Informationen zur Verfügung</target>
+			</trans-unit>
                     
                     
 		</body>
