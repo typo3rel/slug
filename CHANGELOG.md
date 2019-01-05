@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.11] - 2019-01-06
+
+##Changed
+- Code optimizations in List.html and NewsList.html template files
+
+### Added
+- Bulk saving and generating Page slugs finally works!
+- Table row and buttons for bulk editing of Page slugs
+
+
 ## [1.0.10] - 2019-01-05
 
 ### Changed
