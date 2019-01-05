@@ -50,6 +50,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     {
         $backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
         
+        // Check if filter variables are available, otherwise set default values from ExtensionConfiguration
         if($this->request->hasArgument('filter')){
             $filterVariables = $this->request->getArgument('filter');
         }
@@ -60,12 +61,23 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $filterVariables['key'] = '';
         }
                 
+        // Set the order by options for fluid viewhelper f:form.switch
+        $orderbyOptions = [
+            ['value' => 'crdate', 'label' => 'Creation date'],
+            ['value' => 'title', 'label' => 'Title'],
+            ['value' => 'slug', 'label' => 'Slug'],
+            ['value' => 'sys_language_uid', 'label' => 'Language'],
+            ['value' => 'is_siteroot', 'label' => 'Site root'],
+            ['value' => 'doktype', 'label' => 'Doctype']
+        ];
+        
         $this->view->assignMultiple([
             'pages' => $this->pageRepository->findAllFiltered($filterVariables),
             'filter' => $filterVariables,
             'backendConfiguration' => $backendConfiguration,
             'beLanguage' => $GLOBALS['BE_USER']->user['lang'],
-            'extEmconf' => $this->helper->getEmConfiguration('slug')
+            'extEmconf' => $this->helper->getEmConfiguration('slug'),
+            'orderbyOptions' => $orderbyOptions
         ]);
         
     }
