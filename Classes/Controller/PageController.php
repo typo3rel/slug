@@ -62,13 +62,36 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         }
                 
         // Set the order by options for fluid viewhelper f:form.switch
-        $orderbyOptions = [
-            ['value' => 'crdate', 'label' => 'Creation date'],
-            ['value' => 'title', 'label' => 'Title'],
-            ['value' => 'slug', 'label' => 'Slug'],
-            ['value' => 'sys_language_uid', 'label' => 'Language'],
-            ['value' => 'is_siteroot', 'label' => 'Site root'],
-            ['value' => 'doktype', 'label' => 'Doctype']
+        $filterOptions['orderby'] = [
+            ['value' => 'crdate', 'label' => $this->helper->getLangKey('filter.form.select.option.creation_date')],
+            ['value' => 'title', 'label' => $this->helper->getLangKey('filter.form.select.option.title')],
+            ['value' => 'slug', 'label' => $this->helper->getLangKey('filter.form.select.option.slug')],
+            ['value' => 'sys_language_uid', 'label' => $this->helper->getLangKey('filter.form.select.option.sys_language_uid')],
+            ['value' => 'is_siteroot', 'label' => $this->helper->getLangKey('filter.form.select.option.is_siteroot')],
+            ['value' => 'doktype', 'label' => $this->helper->getLangKey('filter.form.select.option.doktype')]
+        ];
+        
+        $filterOptions['order'] = [
+            ['value' => 'DESC', 'label' => $this->helper->getLangKey('filter.form.select.option.descending')],
+            ['value' => 'ASC', 'label' => $this->helper->getLangKey('filter.form.select.option.ascending')]
+        ];
+        
+        $filterOptions['maxentries'] = [
+            ['value' => '10', 'label' => '10'],
+            ['value' => '20', 'label' => '20'],
+            ['value' => '30', 'label' => '30'],
+            ['value' => '40', 'label' => '40'],
+            ['value' => '50', 'label' => '50'],
+            ['value' => '60', 'label' => '60'],
+            ['value' => '70', 'label' => '70'],
+            ['value' => '80', 'label' => '80'],
+            ['value' => '90', 'label' => '90'],
+            ['value' => '100', 'label' => '100'],
+            ['value' => '150', 'label' => '150'],
+            ['value' => '200', 'label' => '200'],
+            ['value' => '300', 'label' => '300'],
+            ['value' => '400', 'label' => '400'],
+            ['value' => '500', 'label' => '500']
         ];
         
         $this->view->assignMultiple([
@@ -77,9 +100,9 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             'backendConfiguration' => $backendConfiguration,
             'beLanguage' => $GLOBALS['BE_USER']->user['lang'],
             'extEmconf' => $this->helper->getEmConfiguration('slug'),
-            'orderbyOptions' => $orderbyOptions
+            'filterOptions' => $filterOptions
         ]);
         
     }
-  
+    
 }
