@@ -6,13 +6,12 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Slug',
-    'description' => 'Helps you managing the URL slugs of your TYPO3 site.',
+    'description' => 'Helps you managing the URL slugs of your TYPO3 site',
     'category' => 'module',
     'author' => 'Simon Köhler',
     'author_email' => 'info@simon-koehler.com',
     'state' => 'beta',
-    'uploadfolder' => 0,
-    'clearCacheOnLoad' => 0,
+    'clearCacheOnLoad' => true,
     'version' => '1.0.10',
     'constraints' => [
         'depends' => [
