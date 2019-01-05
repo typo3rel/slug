@@ -13,7 +13,8 @@ All notable changes to this project will be documented in this file.
 - Removed function 'getNewsRecordInfo' from 'AjaxController.php' 
 
 ### Added
-- Added dynamic select menu options including translation of all labels into German and Spanish
+- Possibiliy to disable the 'additional record info' button in Pages list in global Extension configuration
+- Dynamic select menu options including translation of all labels into German and Spanish
 - More stable check for the News module. First checks if module is active, then if News table exists
 - Comparison of original News slug and freshly generated News slug
 - Notification if the freshly generated slug is still the same like before
