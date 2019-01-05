@@ -81,7 +81,17 @@
                 <tr class="record-info-row">
                     <td colspan="6">
                         <div data-uid="{page.uid}" class="record-info-container">
-                            <f:render partial="GooglePreview" arguments="{page:page}"/>
+                            <f:switch expression="{page.doktype}">
+                                <f:case value="3">
+                                    {f:translate(key:'recordinfo.no_info_available', extensionName: slug)}
+                                </f:case>
+                                <f:case value="254">
+                                    {f:translate(key:'recordinfo.no_info_available', extensionName: slug)}
+                                </f:case>
+                                <f:defaultCase>
+                                    <f:render partial="GooglePreview" arguments="{page:page}"/>
+                                </f:defaultCase>
+                            </f:switch>
                         </div>
                     </td>
                 </tr>
