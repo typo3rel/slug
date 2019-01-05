@@ -39,9 +39,7 @@
         <f:widget.paginate objects="{newsRecords}" as="newsRecordsPaginated" configuration="{addQueryStringMethod: 'POST,GET', itemsPerPage: filter.maxentries, insertAbove: 1, maximumNumberOfLinks: 10}">
             <table class="table table-hover">
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <th colspan="2" style="text-align: right;">
+                    <th colspan="4" style="text-align: right;">
                         <div class="btn-group">
                             <button class="btn btn-default saveAllNewsSlugs" title="{f:translate(key:'button.saveall.title', extensionName: slug)}">
                                 <i class="fa fa-save"></i> {f:translate(key:'button.saveall.label', extensionName: slug)}
