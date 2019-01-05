@@ -222,7 +222,6 @@ jQuery(document).ready(function(){
                 $(this).prop('disabled', true);
                 $('button.saveAllNewsSlugs').prop('disabled', true);
                 $('button.generateNewsSlug').each(function(){
-                    console.log('timer: '+timer);
                     var btn = $(this);
                     setTimeout(function() {
                         btn.trigger('click');
