@@ -5,6 +5,9 @@ use GOCHILLA\Slug\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Backend\Tree\View\PageTreeView;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Utility\IconUtility;
 
 /* 
  * This file was created by Simon Köhler
@@ -48,7 +51,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     protected function listAction()
     {
-        $backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
+        $backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
         
         // Check if filter variables are available, otherwise set default values from ExtensionConfiguration
         if($this->request->hasArgument('filter')){
@@ -102,6 +105,43 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             'extEmconf' => $this->helper->getEmConfiguration('slug'),
             'filterOptions' => $filterOptions
         ]);
+        
+    }
+    
+    
+    /**
+     * Generate a tree view
+     */
+    protected function treeAction()
+    {
+        $startingPoint = 5;
+        $pageRecord = BackendUtility::getRecord('pages',$startingPoint);
+        $tree = GeneralUtility::makeInstance(PageTreeView::class);
+        $tree->init('AND ' . $GLOBALS['BE_USER']->getPagePermsClause(1));        
+        $html = IconUtility::getSpriteIconForRecord(
+           'pages',
+           $pageRecord,
+           array(
+              'title' => $pageRecord['title']
+           )
+        );
+        $tree->tree[] = array(
+            'row' => $pageRecord,
+            'HTML' => $html
+        );
+
+        // Create the page tree, from the starting point, 2 levels deep
+        $depth = 2;
+        $tree->getTree(
+           $startingPoint,
+           $depth,
+           ''
+        );
+
+        // Pass the tree to the view
+        $this->view->assign(
+           'tree', $tree->tree
+        );
         
     }
     
