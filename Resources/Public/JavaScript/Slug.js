@@ -65,7 +65,7 @@ jQuery(document).ready(function(){
             method: 'GET',
             dataType: 'html',
             data: { 
-                uid : uid, 
+                uid : uid,
                 slug : slug
             },
             success: function(response) {
@@ -163,6 +163,33 @@ jQuery(document).ready(function(){
     function updateDynamicPageUrls(uid,slug){
         $('.dynamic-slug-'+uid).find('.slug').html(slug);
     }
+    
+    
+    // Loads the slugs for all Languages
+    function loadTreeItemSlugs(uid){
+        $.ajax({
+            url: TYPO3.settings.ajaxUrls['loadTreeItemSlugs'],
+            method: 'GET',
+            dataType: 'html',
+            data: {
+                uid: uid
+            },
+            success: function(response) {
+                $('.tree-result').html(response);
+            },
+            fail: function(response){
+                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
+                console.log("jQuery Ajax: " + response.statusText);
+                $('.tree-result').html(response.statusText);
+            },
+            error: function(response){
+                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
+                console.log("jQuery Ajax: " + response.statusText);
+                $('.tree-result').html(response.statusText);
+            }
+        });
+    }
+    
     
     $('button.generateAllPageSlugs').on({
         click: function(){
@@ -343,6 +370,18 @@ jQuery(document).ready(function(){
     // Update all dynamic URLs when the slug textfield has been changed
     $('input.slug-input').keyup(function(){
         updateDynamicPageUrls($(this).data('uid'),$(this).val());
+    });
+    
+    // Count and show the current number of listed items
+    $('.record-count').html($('td.slug-input').length);
+
+    // Tree setup from here
+    $('.tree-item > a').on({
+        click: function(){
+            loadTreeItemSlugs($(this).data('uid'));
+            $('.tree-result').html('Clicki clicki! id='+$(this).data('uid'));
+            return false;
+        }
     });
     
 });
