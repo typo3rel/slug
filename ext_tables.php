@@ -13,7 +13,7 @@ call_user_func(
                 'slugs',
                 '',
                 [
-                    'Page' => 'list,site,menu',
+                    'Page' => 'list,site,tree',
                     'Extension' => 'newsList',
                 ],
                 [
