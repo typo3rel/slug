@@ -24,3 +24,9 @@ newsOrderBy = crdate
 
 # cat=news; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.order
 newsOrder = DESC
+
+# cat=tree; type=options[1,2,3,4,5,6,7,8,9,10]; label=Tree level depth
+treeDefaultDepth = 3
+
+# cat=tree; type=string; label=Tree Default Root
+treeDefaultRoot =
