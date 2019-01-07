@@ -176,6 +176,16 @@ jQuery(document).ready(function(){
             },
             success: function(response) {
                 $('.tree-result').html(response);
+                $('button.savePageSlug').on({click: function(){
+                    uid = $(this).data('uid');
+                    slugInputField = $('.slug-input.page-'+uid);
+                    slugInputValue = slugInputField.val();
+                    savePageSlug(slugInputValue,slugInputField,uid,$(this));
+                }});
+                $('input.slug-input').change(function(){
+                    $(this).addClass('has-been-changed');
+                    slugExists($(this).val());
+                });
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
@@ -379,7 +389,10 @@ jQuery(document).ready(function(){
     $('.tree-item > a').on({
         click: function(){
             loadTreeItemSlugs($(this).data('uid'));
-            $('.tree-result').html('Clicki clicki! id='+$(this).data('uid'));
+            $('.tree-item').each(function(){
+                $(this).find('a').removeClass('active');
+            });
+            $(this).addClass('active');
             return false;
         }
     });
