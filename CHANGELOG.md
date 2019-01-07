@@ -1,12 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.11] - 2019-01-06 (In progress! Please use the official repository version 1.0.10 only!)
+## [1.0.11] - 2019-01-07
 
-##Changed
+### Changed
 - Code optimizations in List.html and NewsList.html template files
 
+### Removed
+- Standard doc header
+
 ### Added
+- Added experimental but working action for tree views!
+- Record count badge in table header of list views
 - Bulk saving and generating Page slugs finally works!
 - Table row and buttons for bulk editing of Page slugs
 
