@@ -1,5 +1,10 @@
-#typo3-docbody {
+div#typo3-docbody {
   top: 0px; }
+
+#globalHeader {
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem; }
 
 tr.rootpage {
   background-color: #ccc;
@@ -78,3 +83,17 @@ tr.record-info-row {
     word-wrap: break-word;
     line-height: 1.4;
     color: #545454; }
+
+.tree-item > a.active {
+  color: green;
+  font-weight: bold;
+  text-decoration: none; }
+
+.tree-result h1, .tree-result h2, .tree-result h3, .tree-result h4, .tree-result h5, .tree-result h6 {
+  margin-top: 0; }
+.tree-result .input-group {
+  margin-bottom: 1.4rem; }
+
+.well {
+  border: none;
+  box-shadow: none; }
