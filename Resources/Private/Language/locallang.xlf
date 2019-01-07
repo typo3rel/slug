@@ -74,6 +74,9 @@
                         <trans-unit id="button.news">
 				<source>News</source>
 			</trans-unit>
+                        <trans-unit id="button.tree">
+				<source>Tree</source>
+			</trans-unit>
                         
                         
                         <trans-unit id="siteselect.options.others">
