@@ -2,12 +2,13 @@
 namespace GOCHILLA\Slug\Controller;
 use GOCHILLA\Slug\Utility\HelperUtility;
 use GOCHILLA\Slug\Domain\Repository\PageRepository;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Backend\Tree\View\PageTreeView;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Backend\Utility\IconUtility;
 
 /* 
  * This file was created by Simon Köhler
@@ -17,24 +18,12 @@ use TYPO3\CMS\Backend\Utility\IconUtility;
 
 class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
     
-    /**
-    * @var PageRepository
-    */
     public $pageRepository;
-    
-    
-    /**
-     * @var IconFactory
-     */
     protected $iconFactory;
-    
-    /**
-     * @var HelperUtility
-     */
     protected $helper;
-    
     protected $languages;
     protected $sites;
+    protected $backendConfiguration;
 
 
     /**
@@ -44,6 +33,8 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
          $this->pageRepository = $pageRepository;
          $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
          $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
+         $this->backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
+         $this->sites = GeneralUtility::makeInstance(SiteFinder::class)->getAllSites();
     }
     
     /**
@@ -51,16 +42,15 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     protected function listAction()
     {
-        $backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
         
         // Check if filter variables are available, otherwise set default values from ExtensionConfiguration
         if($this->request->hasArgument('filter')){
             $filterVariables = $this->request->getArgument('filter');
         }
         else{
-            $filterVariables['maxentries'] = $backendConfiguration['defaultMaxEntries'];
-            $filterVariables['orderby'] = $backendConfiguration['defaultOrderBy'];
-            $filterVariables['order'] = $backendConfiguration['defaultOrder'];
+            $filterVariables['maxentries'] = $this->backendConfiguration['defaultMaxEntries'];
+            $filterVariables['orderby'] = $this->backendConfiguration['defaultOrderBy'];
+            $filterVariables['order'] = $this->backendConfiguration['defaultOrder'];
             $filterVariables['key'] = '';
         }
                 
@@ -100,7 +90,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assignMultiple([
             'pages' => $this->pageRepository->findAllFiltered($filterVariables),
             'filter' => $filterVariables,
-            'backendConfiguration' => $backendConfiguration,
+            'backendConfiguration' => $this->backendConfiguration,
             'beLanguage' => $GLOBALS['BE_USER']->user['lang'],
             'extEmconf' => $this->helper->getEmConfiguration('slug'),
             'filterOptions' => $filterOptions
@@ -114,34 +104,53 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     protected function treeAction()
     {
-        $startingPoint = 5;
-        $pageRecord = BackendUtility::getRecord('pages',$startingPoint);
-        $tree = GeneralUtility::makeInstance(PageTreeView::class);
-        $tree->init('AND ' . $GLOBALS['BE_USER']->getPagePermsClause(1));        
-        $html = IconUtility::getSpriteIconForRecord(
-           'pages',
-           $pageRecord,
-           array(
-              'title' => $pageRecord['title']
-           )
-        );
-        $tree->tree[] = array(
-            'row' => $pageRecord,
-            'HTML' => $html
-        );
-
-        // Create the page tree, from the starting point, 2 levels deep
-        $depth = 2;
-        $tree->getTree(
-           $startingPoint,
-           $depth,
-           ''
-        );
-
-        // Pass the tree to the view
-        $this->view->assign(
-           'tree', $tree->tree
-        );
+        
+        if($this->request->hasArgument('siteRoot')){
+            $siteRoot = $this->request->getArgument('siteRoot');
+        }
+        else{
+            $siteRoot = $this->backendConfiguration['treeDefaultRoot'];
+        }
+        
+        if(!$siteRoot || $siteRoot === 0){
+            //Get the first existing site in the root level and its uid
+            foreach ($this->sites as $site) {
+                $siteRoot = $site->getRootPageId();
+                break;
+            }
+        }
+                
+        if($this->request->hasArgument('depth')){
+            $depth = $this->request->getArgument('depth');
+        }
+        else{
+            $depth = $this->backendConfiguration['treeDefaultDepth'];
+        }
+        
+        if($siteRoot){
+            $args['siteRoot'] = $siteRoot;
+            $args['depth'] = $depth;
+            $siteRootRecord = BackendUtility::getRecord('pages',$siteRoot);
+            $tree = GeneralUtility::makeInstance(PageTreeView::class);
+            $tree->init('AND ' . $GLOBALS['BE_USER']->getPagePermsClause(1));         
+            $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+            $icon = '<span class="page-icon">' . $iconFactory->getIconForRecord('pages', $siteRootRecord, Icon::SIZE_SMALL)->render() . '</span>';
+            $tree->tree[] = array(
+                'row' => $siteRootRecord,
+                'icon' => $icon
+            );
+            $tree->getTree($siteRoot,$depth,'');                
+            $this->view->assignMultiple([
+                'tree' => $tree->tree,
+                'backendConfiguration' => $this->backendConfiguration,
+                'extEmconf' => $this->helper->getEmConfiguration('slug'),
+                'sites' => (array) $this->sites,
+                'args' => $args
+            ]);
+        }
+        else{
+            $this->addFlashMessage('Error: No Site root found! PageController.php Line 130');
+        }
         
     }
     
