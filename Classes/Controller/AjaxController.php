@@ -4,9 +4,8 @@ use GOCHILLA\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * Ajax class for slug module
@@ -141,6 +140,43 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $response->getBody()->write($slug);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
       
+    }
+    
+    /**
+     * function loadTreeItemSlugs
+     *
+     * @return void
+     */
+    public function loadTreeItemSlugs(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    {
+        $queryParams = $request->getQueryParams();
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
+        $translations = $this->helper->getPageTranslationsByUid($queryParams['uid']);
+        $root = BackendUtility::getRecord('pages',$queryParams['uid']);
+        $languages = $this->helper->getLanguages();
+        $html .= '<div class="well">';
+        $html .= '<h2>'.$root['title'].' <small>'.$root['seo_title'].'</small></h2>';
+        $html .= '<div class="input-group">'
+                . '<span class="input-group-addon"><i class="fa fa-globe"></i></span>'
+                . '<input type="text" data-uid="'.$root['uid'].'" value="'.$root['slug'].'" class="form-control slug-input page-'.$root['uid'].'">'
+                . '<span class="input-group-btn"><button data-uid="'.$root['uid'].'" id="savePageSlug-'.$root['uid'].'" class="btn btn-default savePageSlug" title="Save slug"><i class="fa fa-save"></i></button></span>'
+                . '</div>';
+        foreach ($translations as $page) {
+            foreach ($languages as $value) {
+                if($value['uid'] === $page['sys_language_uid']){
+                    $icon = $value['language_isocode'];
+                }
+            }
+            $html .= '<h3>'.$page['title'].' <small>'.$page['seo_title'].'</small></h3>';
+            $html .= '<div class="input-group">'
+                . '<span class="input-group-addon">'.$icon.'</span>'
+                . '<input type="text" data-uid="'.$page['uid'].'" value="'.$page['slug'].'" class="form-control slug-input page-'.$page['uid'].'">'
+                . '<span class="input-group-btn"><button data-uid="'.$page['uid'].'" id="savePageSlug-'.$page['uid'].'" class="btn btn-default savePageSlug" title="Save slug"><i class="fa fa-save"></i></button></span>'
+                . '</div>';
+        }
+        $html .= '</div>';
+        $response->getBody()->write($html);
+        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');      
     }
     
 }
