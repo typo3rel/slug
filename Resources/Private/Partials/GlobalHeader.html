@@ -1,4 +1,4 @@
-<div class="row">
+<div id="globalHeader" class="row">
     <div class="col-sm-4 col-md-3">
         <h1><f:translate key="LLL:EXT:slug/Resources/Private/Language/locallang.xlf:ext.title"/> <small><f:translate key="LLL:EXT:slug/Resources/Private/Language/locallang.xlf:ext.version" arguments="{0:'{extEmconf.version}'}"/></small></h1>
     </div>
@@ -8,7 +8,7 @@
                 <i class="fa fa-file-o"></i> {f:translate(key:'button.pages', extensionName: slug)}
             </f:link.action>
             <f:link.action action="tree" controller="Page" class="btn btn-default">
-                <i class="fa fa-tree"></i> {f:translate(key:'button.tree', extensionName: slug)}
+                <i class="fa fa-sitemap"></i> {f:translate(key:'button.tree', extensionName: slug)}
             </f:link.action>
             <f:link.action action="newsList" controller="Extension" class="btn btn-default">
                 <f:image src="EXT:slug/Resources/Public/Icons/news_domain_model_news.svg" height="14" title="id={news.uid}"/> {f:translate(key:'button.news', extensionName: slug)}
