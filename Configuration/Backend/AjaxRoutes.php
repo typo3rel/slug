@@ -32,4 +32,8 @@ return [
         'path' => '/slug/generate/news',
         'target' => Controller\AjaxController::class . '::generateNewsSlug'
     ],
+    'loadTreeItemSlugs' => [
+        'path' => '/slug/load/tree/slugs',
+        'target' => Controller\AjaxController::class . '::loadTreeItemSlugs'
+    ]
 ];
