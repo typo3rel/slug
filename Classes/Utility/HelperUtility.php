@@ -1,6 +1,7 @@
 <?php
 namespace GOCHILLA\Slug\Utility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Site\SiteFinder;
 
 /* 
  * This file was created by Simon Köhler
@@ -35,8 +36,8 @@ class HelperUtility {
                 $output = $value['flag'];
                 break;
             }
-            elseif($sys_language_uid === 0){
-                $output = 'multiple';
+            else{
+                $output = $value['flag'];
                 break;
             }
         }
@@ -69,6 +70,23 @@ class HelperUtility {
                 $output = '';
                 break;
             }
+        }
+        return $output;
+    }
+    
+    
+    public function getPageTranslationsByUid($uid){
+        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $statement = $queryBuilder
+            ->select('*')
+            ->from('pages')
+            ->where(
+                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+             )
+            ->execute();
+        $output = array();
+        while ($row = $statement->fetch()) {
+            array_push($output, $row);
         }
         return $output;
     }
