@@ -36,7 +36,8 @@
     <f:widget.paginate objects="{pages}" as="pagesPaginated" configuration="{addQueryStringMethod: 'POST,GET', itemsPerPage: filter.maxentries, insertAbove: 1, maximumNumberOfLinks: 10}">
         <table class="table table-hover">
             <tr>
-                <th colspan="5" style="text-align: right;">
+                <th colspan="2"><span class="badge badge-info record-count" title="Number of records in the current view"></span></th>
+                <th colspan="3" style="text-align: right;">
                     <div class="btn-group">
                         <button class="btn btn-default saveAllPageSlugs" title="{f:translate(key:'button.saveall.title', extensionName: slug)}">
                             <i class="fa fa-save"></i> {f:translate(key:'button.saveall.label', extensionName: slug)}
