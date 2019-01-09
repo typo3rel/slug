@@ -69,18 +69,19 @@ jQuery(document).ready(function(){
                 slug : slug
             },
             success: function(response) {
-                if(response === '1'){
-                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], slug);
+                var responseArray = $.parseJSON(response);
+                if(responseArray.status === 1){
+                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
                 }
                 else{
-                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], slug);
+                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], responseArray.slug);
                 }
                 btn.prop('disabled', false);
                 field.prop('disabled', false);
                 field.removeClass('has-been-changed');
-                field.attr('value',slug);
-                $('.dynamic-slug-'+uid).find('.slug').html(slug);
-                $('.dynamic-slug-'+uid).attr('href', $('.dynamic-slug-'+uid).data('baselink')+slug);
+                field.attr('value',responseArray.slug);
+                $('.dynamic-slug-'+uid).find('.slug').html(responseArray.slug);
+                $('.dynamic-slug-'+uid).attr('href', $('.dynamic-slug-'+uid).data('baselink')+responseArray.slug);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
@@ -137,8 +138,9 @@ jQuery(document).ready(function(){
                 slug : slug
             },
             success: function(response) {
-                if(response === '1'){
-                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], slug);
+                var responseArray = $.parseJSON(response);
+                if(responseArray.status === 1){
+                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
                 }
                 else{
                     top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], slug);
@@ -146,7 +148,7 @@ jQuery(document).ready(function(){
                 btn.prop('disabled', false);
                 field.prop('disabled', false);
                 field.removeClass('has-been-changed');
-                field.attr('value',slug);
+                field.attr('value',responseArray.slug);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
