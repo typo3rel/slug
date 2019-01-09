@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.12] - 2019-01-09
 - Bugfix-Release
+- Now creates only unique slugs!
 - Issue 'Duplicate entries for news' solved (https://github.com/koehlersimon/slug/issues/2)
 - Several small code improvements and changes
 
