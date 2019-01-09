@@ -2,7 +2,6 @@
 namespace GOCHILLA\Slug\Controller;
 use GOCHILLA\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -34,14 +33,18 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     {
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
+        $slug = $this->helper->returnUniqueSlug('page', $queryParams['slug'], $queryParams['uid']);
         $statement = $queryBuilder
             ->update('pages')
             ->where(
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queryParams['uid'],\PDO::PARAM_INT))
             )
-            ->set('slug',$queryParams['slug']) // Function "createNamedParameter" is NOT needed here!
+            ->set('slug',$slug) // Function "createNamedParameter" is NOT needed here!
             ->execute();
-        $response->getBody()->write($statement);
+        $responseInfo['status'] = $statement;
+        $responseInfo['slug'] = $slug;
+        $response->getBody()->write(json_encode($responseInfo));
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
     
@@ -54,14 +57,18 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     {
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
+        $slug = $this->helper->returnUniqueSlug('news', $queryParams['slug'], $queryParams['uid']);
         $statement = $queryBuilder
             ->update('tx_news_domain_model_news')
             ->where(
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queryParams['uid'],\PDO::PARAM_INT))
             )
-            ->set('path_segment',$queryParams['slug']) // Function "createNamedParameter" is NOT needed here!
+            ->set('path_segment',$slug) // Function "createNamedParameter" is NOT needed here!
             ->execute();
-        $response->getBody()->write($statement);
+        $responseInfo['status'] = $statement;
+        $responseInfo['slug'] = $slug;
+        $response->getBody()->write(json_encode($responseInfo));
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
     
@@ -93,9 +100,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     public function generatePageSlug(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
     {
-        $fieldConfig = $GLOBALS['TCA']['pages']['columns']['slug']['config'];
-        $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'pages', 'slug', $fieldConfig);
-        
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
         $statement = $queryBuilder
@@ -107,7 +112,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ->execute();
         $slug = '';
         while ($row = $statement->fetch()) {
-            $slug .= $slugHelper->generate($row, $row['pid']);
+            $slug = $this->helper->returnUniqueSlug('page', $row['slug'], $row['uid']);
+            break;
         }
         $response->getBody()->write($slug);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
@@ -121,9 +127,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     public function generateNewsSlug(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
     {
-        $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
-        $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
-        
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
         $statement = $queryBuilder
@@ -135,7 +139,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ->execute();
         $slug = '';
         while ($row = $statement->fetch()) {
-            $slug .= $slugHelper->generate($row, $row['pid']);
+            $slug = $this->helper->returnUniqueSlug('news', $row['path_segment'], $row['uid']);
+            break;
         }
         $response->getBody()->write($slug);
         return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
