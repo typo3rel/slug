@@ -42,8 +42,9 @@ jQuery(document).ready(function(){
                 uid : uid
             },
             success: function(response) {
+                var responseArray = $.parseJSON(response);
                 $('#generatePageSlug-'+uid).prop('disabled', false);
-                $('.slug-input.page-'+uid).val(response);
+                $('.slug-input.page-'+uid).val(responseArray.slug);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
@@ -106,12 +107,13 @@ jQuery(document).ready(function(){
                 uid: uid
             },
             success: function(response) {
+                var responseArray = $.parseJSON(response);
                 $('#generateNewsSlug-'+uid).prop('disabled', false);
-                if($('.slug-input-news.news-'+uid).val() === response){
+                if($('.slug-input-news.news-'+uid).val() === responseArray.slug){
                     top.TYPO3.Notification.info('No changes','The generated slug is the same like the original...');
                 }
                 else{
-                    $('.slug-input-news.news-'+uid).val(response);
+                    $('.slug-input-news.news-'+uid).val(responseArray.slug);
                 }
             },
             fail: function(response){
