@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.12] - 2019-01-09
+- Bugfix-Release
+- Issue 'Duplicate entries for news' solved (https://github.com/koehlersimon/slug/issues/2)
+- Several small code improvements and changes
+
 ## [1.0.11] - 2019-01-07
 
 ### Changed
