@@ -2,6 +2,9 @@
 namespace GOCHILLA\Slug\Utility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\DataHandling\SlugHelper;
+use TYPO3\CMS\Core\DataHandling\Model\RecordState;
+use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
 
 /* 
  * This file was created by Simon Köhler
@@ -94,6 +97,51 @@ class HelperUtility {
     
     public function getLangKey($key) {
         return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key,'slug');
+    }
+    
+    
+    public function getRecordForSlugBuilding($uid,$table){
+        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($table);
+        $statement = $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid,\PDO::PARAM_INT))
+            )
+            ->execute();
+        $output = array();
+        while ($row = $statement->fetch()) {
+            $output = $row;
+            break;
+        }
+        return $output;
+    }
+    
+    
+    public function returnUniqueSlug($type,$slug,$recordUid) {
+                       
+        switch ($type) {
+            case 'page':
+                $fieldConfig = $GLOBALS['TCA']['pages']['columns']['slug']['config'];
+                $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'pages', 'slug', $fieldConfig);
+                $record = $this->getRecordForSlugBuilding($recordUid, 'pages');
+                $state = RecordStateFactory::forName('pages')->fromArray($record, $record['pid'], $recordUid);
+                $uniqueSlug = $slugHelper->buildSlugForUniqueInSite($slug, $state);
+                break;
+            case 'news':
+                $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
+                $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
+                $record = $this->getRecordForSlugBuilding($recordUid, 'tx_news_domain_model_news');
+                $state = RecordStateFactory::forName('tx_news_domain_model_news')->fromArray($record, $record['pid'], $recordUid);
+                $uniqueSlug = $slugHelper->buildSlugForUniqueInSite($slug, $state); 
+                break;
+            default:
+                $uniqueSlug = 'url-'.time();
+                break;
+        }
+        
+        return $uniqueSlug;
+        
     }
     
 }
