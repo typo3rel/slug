@@ -13,23 +13,3 @@ module.tx_slug {
         layoutRootPaths.1 = {$module.tx_slug.view.layoutRootPath}
     }
 }
-
-
-config.tx_extbase.persistence.classes {
-    GOCHILLA\Slug\Domain\Model\Page {
-        mapping {
-            tableName = pages
-            columns {
-                uid.mapOnProperty = uid
-                sys_language_uid.mapOnProperty = language
-                hidden.mapOnProperty = hidden
-                doctype.mapOnProperty = doctype
-                is_siteroot.mapOnProperty = isSiteroot
-                title.mapOnProperty = title
-                slug.mapOnProperty = slug
-                tx_slug_locked.mapOnProperty = slugLock
-                l10n_parent.mapOnProperty = l10nParent
-            }
-        }
-    }
-} 
