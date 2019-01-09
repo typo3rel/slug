@@ -26,7 +26,6 @@ call_user_func(
         }
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('slug', 'Configuration/TypoScript', 'Slug');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_slug_domain_model_page', 'EXT:slug/Resources/Private/Language/locallang_csh_tx_slug_domain_model_page.xlf');
     }
 );
  
