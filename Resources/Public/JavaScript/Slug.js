@@ -71,18 +71,18 @@ jQuery(document).ready(function(){
             },
             success: function(response) {
                 var responseArray = $.parseJSON(response);
+                btn.prop('disabled', false);
+                field.prop('disabled', false);
+                field.removeClass('has-been-changed');
                 if(responseArray.status === 1){
                     top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
                 }
                 else{
                     top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], responseArray.slug);
                 }
-                btn.prop('disabled', false);
-                field.prop('disabled', false);
-                field.removeClass('has-been-changed');
-                field.attr('value',responseArray.slug);
                 $('.dynamic-slug-'+uid).find('.slug').html(responseArray.slug);
                 $('.dynamic-slug-'+uid).attr('href', $('.dynamic-slug-'+uid).data('baselink')+responseArray.slug);
+                $('.slug-input.page-'+uid).val(responseArray.slug);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
@@ -141,16 +141,16 @@ jQuery(document).ready(function(){
             },
             success: function(response) {
                 var responseArray = $.parseJSON(response);
+                btn.prop('disabled', false);
+                field.prop('disabled', false);
+                field.removeClass('has-been-changed');
                 if(responseArray.status === 1){
                     top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
                 }
                 else{
                     top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], slug);
                 }
-                btn.prop('disabled', false);
-                field.prop('disabled', false);
-                field.removeClass('has-been-changed');
-                field.attr('value',responseArray.slug);
+                $('.slug-input-news.news-'+uid).val(responseArray.slug);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
