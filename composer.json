@@ -1,0 +1,24 @@
+{
+    "name": "koehlersimon/slug",
+    "description": "Helps you managing the URL slugs of your TYPO3 site",
+    "type": "typo3-cms-extension",
+    "version": "1.0.12",
+    "require": {
+        "typo3/cms-core": "^9.5.0"
+    },
+    "authors": [
+        {
+            "name": "Simon Köhler",
+            "email": "info@simon-koehler.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "GOCHILLA\\Slug\\": "Classes"
+        }
+    },
+    "replace": {
+        "slug": "self.version",
+        "typo3-ter/slug": "self.version"
+    }
+}
