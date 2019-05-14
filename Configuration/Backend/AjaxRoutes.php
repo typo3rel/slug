@@ -9,15 +9,15 @@ use GOCHILLA\Slug\Controller;
 
 return [
     'savePageSlug' => [
-        'path' => '/slug/save',
+        'path' => '/slug/savePageSlug',
         'target' => Controller\AjaxController::class . '::savePageSlug'
     ],
     'slugExists' => [
-        'path' => '/slug/exists',
+        'path' => '/slug/slugExists',
         'target' => Controller\AjaxController::class . '::slugExists'
     ],
     'generatePageSlug' => [
-        'path' => '/slug/generate',
+        'path' => '/slug/generatePageSlug',
         'target' => Controller\AjaxController::class . '::generatePageSlug'
     ],
     'getPageInfo' => [
@@ -25,15 +25,15 @@ return [
         'target' => Controller\AjaxController::class . '::getPageInfo'
     ],
     'saveNewsSlug' => [
-        'path' => '/slug/save/news',
+        'path' => '/slug/saveNewsSlug',
         'target' => Controller\AjaxController::class . '::saveNewsSlug'
     ],
     'generateNewsSlug' => [
-        'path' => '/slug/generate/news',
+        'path' => '/slug/generateNewsSlug',
         'target' => Controller\AjaxController::class . '::generateNewsSlug'
     ],
     'loadTreeItemSlugs' => [
-        'path' => '/slug/load/tree/slugs',
+        'path' => '/slug/loadTreeItemSlugs',
         'target' => Controller\AjaxController::class . '::loadTreeItemSlugs'
     ]
 ];
