@@ -22,37 +22,38 @@ jQuery(document).ready(function(){
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Fail', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
+                console.log("slugExists fail: " + response);
             },
             error: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
+                console.log("slugExists error: " + response);
             }
         });
     }
     
     // Generates a single page slug and puts it into the slug text input field with the same id
     function generatePageSlug(uid){
+        console.log(TYPO3.settings.ajaxUrls['generatePageSlug']);
         $('#generatePageSlug-'+uid).prop('disabled', true);
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generatePageSlug'],
             method: 'GET',
-            dataType: 'html',
+            dataType: 'json',
             data: { 
                 uid : uid
             },
             success: function(response) {
-                var responseArray = $.parseJSON(response);
                 $('#generatePageSlug-'+uid).prop('disabled', false);
-                $('.slug-input.page-'+uid).val(responseArray.slug);
+                $('.slug-input.page-'+uid).val(response.slug);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
+                console.log("generatePageSlug fail: " + response);
             },
             error: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
+                console.log("generatePageSlug error: ");
+                console.log(response);
             }
         });
     }
@@ -60,37 +61,41 @@ jQuery(document).ready(function(){
     // Saves a single page slug and refreshes all dynamic slug containers
     function savePageSlug(slug,field,uid,btn){
         btn.prop('disabled', true);
-        field.prop('disabled', true);                
+        field.prop('disabled', true);
+        
+        console.log([slug,uid]);
+        
         $.ajax({
             url: TYPO3.settings.ajaxUrls['savePageSlug'],
             method: 'GET',
-            dataType: 'html',
+            dataType: 'json',
             data: { 
                 uid : uid,
                 slug : slug
             },
             success: function(response) {
-                var responseArray = $.parseJSON(response);
                 btn.prop('disabled', false);
                 field.prop('disabled', false);
                 field.removeClass('has-been-changed');
-                if(responseArray.status === 1){
-                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
+                if(response.status === '1'){
+                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], response.slug);
                 }
                 else{
-                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], responseArray.slug);
+                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], response.slug);
                 }
-                $('.dynamic-slug-'+uid).find('.slug').html(responseArray.slug);
-                $('.dynamic-slug-'+uid).attr('href', $('.dynamic-slug-'+uid).data('baselink')+responseArray.slug);
-                $('.slug-input.page-'+uid).val(responseArray.slug);
+                $('.dynamic-slug-'+uid).find('.slug').html(response.slug);
+                $('.dynamic-slug-'+uid).attr('href', $('.dynamic-slug-'+uid).data('baselink')+response.slug);
+                $('.slug-input.page-'+uid).val(response.slug);
+                console.log(response);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
+                console.log("jQuery Ajax fail: " + response.statusText);
             },
             error: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
+                console.log("savePageSlug Ajax error: " + response.statusText);
+                console.log(response);
             }
         });
         
@@ -102,18 +107,17 @@ jQuery(document).ready(function(){
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generateNewsSlug'],
             method: 'GET',
-            dataType: 'html',
+            dataType: 'json',
             data: {
                 uid: uid
             },
             success: function(response) {
-                var responseArray = $.parseJSON(response);
                 $('#generateNewsSlug-'+uid).prop('disabled', false);
-                if($('.slug-input-news.news-'+uid).val() === responseArray.slug){
+                if($('.slug-input-news.news-'+uid).val() === response.slug){
                     top.TYPO3.Notification.info('No changes','The generated slug is the same like the original...');
                 }
                 else{
-                    $('.slug-input-news.news-'+uid).val(responseArray.slug);
+                    $('.slug-input-news.news-'+uid).val(response.slug);
                 }
             },
             fail: function(response){
