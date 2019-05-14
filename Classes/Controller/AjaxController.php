@@ -52,8 +52,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $responseInfo['slug'] = $slug;
         }
         else{
-            $responseInfo['status'] = '1';
-            $responseInfo['slug'] = '/error';
+            $responseInfo['status'] = '0';
+            $responseInfo['slug'] = $slug;
         }
         return new JsonResponse($responseInfo);
     }
@@ -66,7 +66,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function saveNewsSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $slug = $this->helper->returnUniqueSlug('news', $queryParams['slug'], $queryParams['uid']);
         $statement = $queryBuilder
@@ -91,7 +91,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function slugExists(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $result = $queryBuilder
             ->count('slug')
             ->from('pages')
@@ -114,7 +114,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'pages', 'slug', $fieldConfig);
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $statement = $queryBuilder
             ->select('*')
             ->from('pages')
@@ -137,13 +137,13 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      *
      * @return void
      */
-    public function generateNewsSlug(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function generateNewsSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
         $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $statement = $queryBuilder
             ->select('*')
             ->from('tx_news_domain_model_news')
@@ -158,9 +158,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $slug = $this->helper->returnUniqueSlug('news', $slugGenerated, $row['uid']);
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slug;
-        $response->getBody()->write(json_encode($responseInfo));
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
-      
+        return new JsonResponse($responseInfo);
     }
     
     /**
