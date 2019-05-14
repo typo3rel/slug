@@ -2,9 +2,12 @@
 namespace GOCHILLA\Slug\Controller;
 use GOCHILLA\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Http\HtmlResponse;
+use TYPO3\CMS\Core\Http\JsonResponse;
 
 /**
  * Ajax class for slug module
@@ -29,10 +32,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      *
      * @return void
      */
-    public function savePageSlug(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function savePageSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
+        
         $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $slug = $this->helper->returnUniqueSlug('page', $queryParams['slug'], $queryParams['uid']);
         $statement = $queryBuilder
@@ -42,18 +46,24 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             )
             ->set('slug',$slug) // Function "createNamedParameter" is NOT needed here!
             ->execute();
-        $responseInfo['status'] = $statement;
-        $responseInfo['slug'] = $slug;
-        $response->getBody()->write(json_encode($responseInfo));
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
+          
+        if($statement){
+            $responseInfo['status'] = '1';
+            $responseInfo['slug'] = $slug;
+        }
+        else{
+            $responseInfo['status'] = '1';
+            $responseInfo['slug'] = '/error';
+        }
+        return new JsonResponse($responseInfo);
     }
     
     /**
-     * function saveNewsSlug
-     *
-     * @return void
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @return ResponseInterface
      */
-    public function saveNewsSlug(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function saveNewsSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
@@ -68,8 +78,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ->execute();
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slug;
-        $response->getBody()->write(json_encode($responseInfo));
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
+        //$response->getBody()->write(json_encode($responseInfo));
+        //return $response->withHeader('Content-Type', 'application/json; charset=utf-8');
+        return new JsonResponse($responseInfo);
     }
     
     /**
@@ -77,7 +88,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      *
      * @return void
      */
-    public function slugExists(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function slugExists(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
@@ -89,8 +100,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             )
             ->execute()
             ->fetchColumn(0);
-        $response->getBody()->write($result);
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
+        return new HtmlResponse($result);
     }
     
     /**
@@ -98,7 +108,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      *
      * @return void
      */
-    public function generatePageSlug(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function generatePageSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $fieldConfig = $GLOBALS['TCA']['pages']['columns']['slug']['config'];
         $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'pages', 'slug', $fieldConfig);
@@ -119,9 +129,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $slug = $this->helper->returnUniqueSlug('page', $slugGenerated, $row['uid']);
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slug;
-        $response->getBody()->write(json_encode($responseInfo));
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');
-      
+        return new JsonResponse($responseInfo);
     }
     
     /**
@@ -160,7 +168,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      *
      * @return void
      */
-    public function loadTreeItemSlugs(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response)
+    public function loadTreeItemSlugs(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $queryParams = $request->getQueryParams();
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
@@ -188,8 +196,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
                 . '</div>';
         }
         $html .= '</div>';
-        $response->getBody()->write($html);
-        return $response->withHeader('Content-Type', 'text/html; charset=utf-8');      
+        return new HtmlResponse($html);
     }
     
 }
