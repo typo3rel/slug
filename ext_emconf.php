@@ -12,10 +12,10 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'info@simon-koehler.com',
     'state' => 'beta',
     'clearCacheOnLoad' => true,
-    'version' => '1.0.12',
+    'version' => '1.0.13',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.0-9.5.99',
+            'typo3' => '9.5.0-9.5.6',
         ],
         'conflicts' => [],
         'suggests' => [],
