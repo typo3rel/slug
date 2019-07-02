@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.14] - 2019-07-01
+- Bugfix-Release
+- Checked compatibility with TYPO3 9.5.8!
+
 ## [1.0.13] - 2019-05-14
 - Bugfix-Release
 - Due to a change in the basic functionality in relation to TYPO3 Ajax Requests, the extension was not compatible with TYPO3 9.5.6. This has now been fixed!
