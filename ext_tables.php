@@ -14,7 +14,7 @@ call_user_func(
                 '',
                 [
                     'Page' => 'list,site,tree',
-                    'Extension' => 'newsList',
+                    'Extension' => 'newsList,additionalTable',
                 ],
                 [
                     'access' => 'user,group',
