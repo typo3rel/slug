@@ -32,6 +32,14 @@ return [
         'path' => '/slug/generateNewsSlug',
         'target' => Controller\AjaxController::class . '::generateNewsSlug'
     ],
+    'saveRecordSlug' => [
+        'path' => '/slug/saveRecordSlug',
+        'target' => Controller\AjaxController::class . '::saveRecordSlug'
+    ],
+    'generateRecordSlug' => [
+        'path' => '/slug/generateRecordSlug',
+        'target' => Controller\AjaxController::class . '::generateRecordSlug'
+    ],
     'loadTreeItemSlugs' => [
         'path' => '/slug/loadTreeItemSlugs',
         'target' => Controller\AjaxController::class . '::loadTreeItemSlugs'
