@@ -3,6 +3,17 @@
         <h1><f:translate key="LLL:EXT:slug/Resources/Private/Language/locallang.xlf:ext.title"/> <small><f:translate key="LLL:EXT:slug/Resources/Private/Language/locallang.xlf:ext.version" arguments="{0:'{extEmconf.version}'}"/></small></h1>
     </div>
     <div class="col-sm-8 col-md-9">
+        
+        <f:if condition="{backendConfiguration.additionalTablesEnabled}">
+            <div class="btn-group pull-right">
+                <f:for each="{additionalTables}" as="table" key="label">
+                    <f:link.action action="additionalTable" controller="Extension" class="btn btn-default" arguments="{table:label}">
+                        <i class="fa fa-plus"></i> {table.label}
+                    </f:link.action>
+                </f:for>
+            </div>
+        </f:if>
+        
         <div class="btn-group pull-right">
             <f:link.action action="list" controller="Page" class="btn btn-default">
                 <i class="fa fa-file-o"></i> {f:translate(key:'button.pages', extensionName: slug)}
@@ -14,6 +25,7 @@
                 <f:image src="EXT:slug/Resources/Public/Icons/news_domain_model_news.svg" height="14" title="id={news.uid}"/> {f:translate(key:'button.news', extensionName: slug)}
             </f:link.action>
         </div>
+        
         <f:comment>
             <div class="alert alert-info">
                 <f:format.raw>
