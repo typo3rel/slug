@@ -162,6 +162,40 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
     
     /**
+     * function generateRecordSlug
+     *
+     * @return void
+     */
+    public function generateRecordSlug(\Psr\Http\Message\ServerRequestInterface $request)
+    {
+        /*
+        $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
+        $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
+        $queryParams = $request->getQueryParams();
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $statement = $queryBuilder
+            ->select('*')
+            ->from('tx_news_domain_model_news')
+            ->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queryParams['uid'],\PDO::PARAM_INT))
+            )
+            ->execute();
+        while ($row = $statement->fetch()) {
+            $slugGenerated = $slugHelper->generate($row, $row['pid']);
+            break;
+        }
+         
+        $slug = $this->helper->returnUniqueSlug('news', $slugGenerated, $row['uid']);
+        $responseInfo['status'] = $statement;
+        $responseInfo['slug'] = $slug;
+        
+        */
+        $responseInfo['status'] = "TEMPORARY ERROR!";
+        return new JsonResponse($responseInfo);
+    }
+    
+    /**
      * function loadTreeItemSlugs
      *
      * @return void
