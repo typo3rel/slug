@@ -130,6 +130,9 @@
                         <trans-unit id="filter.form.select.option.creation_date">
 				<target>Erstellungsdatum</target>
 			</trans-unit>
+                        <trans-unit id="filter.form.select.option.tstamp">
+				<target>Änderungsdatum</target>
+			</trans-unit>
                         <trans-unit id="filter.form.select.option.title">
 				<target>Titel</target>
 			</trans-unit>

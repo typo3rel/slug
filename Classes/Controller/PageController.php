@@ -57,6 +57,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         // Set the order by options for fluid viewhelper f:form.switch
         $filterOptions['orderby'] = [
             ['value' => 'crdate', 'label' => $this->helper->getLangKey('filter.form.select.option.creation_date')],
+            ['value' => 'tstamp', 'label' => $this->helper->getLangKey('filter.form.select.option.tstamp')],
             ['value' => 'title', 'label' => $this->helper->getLangKey('filter.form.select.option.title')],
             ['value' => 'slug', 'label' => $this->helper->getLangKey('filter.form.select.option.slug')],
             ['value' => 'sys_language_uid', 'label' => $this->helper->getLangKey('filter.form.select.option.sys_language_uid')],
