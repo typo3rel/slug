@@ -94,7 +94,8 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             'backendConfiguration' => $this->backendConfiguration,
             'beLanguage' => $GLOBALS['BE_USER']->user['lang'],
             'extEmconf' => $this->helper->getEmConfiguration('slug'),
-            'filterOptions' => $filterOptions
+            'filterOptions' => $filterOptions,
+            'additionalTables' => $this->settings['additionalTables']
         ]);
         
     }
