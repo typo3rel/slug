@@ -53,18 +53,46 @@ class ExtensionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     }
     
     
-    public function checkIfTableExists($table)
-       {
-           $tableExists = GeneralUtility::makeInstance(ConnectionPool::class)
-               ->getConnectionForTable($table)
-               ->getSchemaManager()
-               ->tablesExist([$table]);
-           if($tableExists){
-               return true;
-           }
-           else{
-               return false;
-           }
-       }
+    public function checkIfTableExists($table){
+        $tableExists = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable($table)
+            ->getSchemaManager()
+            ->tablesExist([$table]);
+        if($tableExists){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public function getAdditionalRecords($table,$filterVariables,$additionalTables) {
+        
+        $tableConf = $additionalTables[$table];
+        
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);        
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
+        $query = $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->orderBy($filterVariables['orderby'],$filterVariables['order']);
+            
+        if($filterVariables['key']){
+            $query->where(
+                $queryBuilder->expr()->like($tableConf['slugField'],$queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($filterVariables['key']) . '%'))
+            );
+        }
+        
+        $statement = $query->execute();
+        $output = array();
+        while ($row = $statement->fetch()) {
+            $row['icon'] = $tableConf['icon'];
+            $row['slugField'] = $row[$tableConf['slugField']];
+            $row['flag'] = $this->helper->getFlagIconByLanguageUid($row['sys_language_uid']);
+            $row['isocode'] = $this->helper->getIsoCodeByLanguageUid($row['sys_language_uid']);
+            array_push($output, $row);
+        }
+        return $output;
+    }
     
 }
