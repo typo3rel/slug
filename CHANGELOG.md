@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.15] - 2019-07-07
+- Added functionality to use ANY custom table from TypoScript settings, but this is only a BETA version for now!
+- Added sorting by timestamp (page field "tstamp") for page slugs
+
 ## [1.0.14] - 2019-07-01
 - Bugfix-Release
 - Checked compatibility with TYPO3 9.5.8!
