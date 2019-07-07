@@ -30,3 +30,15 @@ treeDefaultDepth = 3
 
 # cat=tree; type=string; label=Tree Default Root
 treeDefaultRoot =
+
+# cat=additional_tables; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:additionalTablesEnabled
+additionalTablesEnabled = 0
+
+# cat=additional_tables; type=options[10,20,30,40,50,60,70,80,90,100,150,200,300,400,500]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.maxentries
+recordMaxEntries = 10
+
+# cat=additional_tables; type=options[crdate,title,path_segment,sys_language_uid]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.orderby
+recordOrderBy = crdate
+
+# cat=additional_tables; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.order
+recordOrder = DESC
