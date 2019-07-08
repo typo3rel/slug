@@ -34,11 +34,10 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     public function savePageSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
-        
         $queryParams = $request->getQueryParams();
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
-        $slug = $this->helper->returnUniqueSlug('page', $queryParams['slug'], $queryParams['uid']);
+        $slug = $this->helper->returnUniqueSlug('page', $queryParams['slug'], $queryParams['uid'], 'pages', 'slug');
         $statement = $queryBuilder
             ->update('pages')
             ->where(
@@ -78,8 +77,31 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ->execute();
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slug;
-        //$response->getBody()->write(json_encode($responseInfo));
-        //return $response->withHeader('Content-Type', 'application/json; charset=utf-8');
+        return new JsonResponse($responseInfo);
+    }
+    
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @return ResponseInterface
+     */
+    public function saveRecordSlug(\Psr\Http\Message\ServerRequestInterface $request)
+    {
+        $queryParams = $request->getQueryParams();
+        $uid = $queryParams['uid'];
+        $table = $queryParams['table'];
+        $slug = $queryParams['slug'];
+        $slugField  = $queryParams['slugField'];        
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
+        $statement = $queryBuilder
+            ->update($table)
+            ->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid,\PDO::PARAM_INT))
+            )
+            ->set($slugField,$slug) // Function "createNamedParameter" is NOT needed here!
+            ->execute();
+        $responseInfo['status'] = $statement;
+        $responseInfo['slug'] = $slug;
         return new JsonResponse($responseInfo);
     }
     
@@ -126,7 +148,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $slugGenerated = $slugHelper->generate($row, $row['pid']);
             break;
         }
-        $slug = $this->helper->returnUniqueSlug('page', $slugGenerated, $row['uid']);
+        $slug = $this->helper->returnUniqueSlug('page', $slugGenerated, $row['uid'], 'pages', 'slug');
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slug;
         return new JsonResponse($responseInfo);
@@ -168,30 +190,31 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     public function generateRecordSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
-        /*
-        $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
-        $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
-        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
         $queryParams = $request->getQueryParams();
+        $uid = $queryParams['uid'];
+        $table = $queryParams['table'];
+        $slugField  = $queryParams['slugField'];
+        $titleField  = $queryParams['titleField'];
+        
+        $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$slugField]['config'];
+        $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, $table, $slugField, $fieldConfig);
+        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
+        
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $statement = $queryBuilder
             ->select('*')
-            ->from('tx_news_domain_model_news')
+            ->from($table)
             ->where(
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queryParams['uid'],\PDO::PARAM_INT))
             )
             ->execute();
         while ($row = $statement->fetch()) {
-            $slugGenerated = $slugHelper->generate($row, $row['pid']);
+            $slugGenerated = $slugHelper->sanitize($row[$titleField]);
             break;
         }
-         
-        $slug = $this->helper->returnUniqueSlug('news', $slugGenerated, $row['uid']);
-        $responseInfo['status'] = $statement;
-        $responseInfo['slug'] = $slug;
         
-        */
-        $responseInfo['status'] = "TEMPORARY ERROR!";
+        $responseInfo['status'] = $statement;
+        $responseInfo['slug'] = $slugGenerated;
         return new JsonResponse($responseInfo);
     }
     
