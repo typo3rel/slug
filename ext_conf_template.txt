@@ -25,20 +25,25 @@ newsOrderBy = crdate
 # cat=news; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.order
 newsOrder = DESC
 
-# cat=tree; type=options[1,2,3,4,5,6,7,8,9,10]; label=Tree level depth
+
+# cat=tree; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:tree.enabled
+treeEnabled = 1
+
+# cat=tree; type=options[1,2,3,4,5,6,7,8,9,10]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:tree.depth
 treeDefaultDepth = 3
 
-# cat=tree; type=string; label=Tree Default Root
+# cat=tree; type=string; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:tree.root
 treeDefaultRoot =
 
-# cat=additional_tables; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:additionalTablesEnabled
-additionalTablesEnabled = 0
 
-# cat=additional_tables; type=options[10,20,30,40,50,60,70,80,90,100,150,200,300,400,500]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.maxentries
+# cat=custom records; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:record.enabled
+recordEnabled = 0
+
+# cat=custom records; type=options[10,20,30,40,50,60,70,80,90,100,150,200,300,400,500]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:record.maxentries
 recordMaxEntries = 10
 
-# cat=additional_tables; type=options[crdate,title,path_segment,sys_language_uid]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.orderby
+# cat=custom records; type=options[crdate,title,path_segment,sys_language_uid]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:record.orderby
 recordOrderBy = crdate
 
-# cat=additional_tables; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.order
+# cat=custom records; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:record.order
 recordOrder = DESC
