@@ -45,7 +45,7 @@ Very important to know:
 
 Here's the TypoScript code you will need to make a custom table work. Put it into the setup of your root page.
 
-# Module configuration
+`# Module configuration
 module.tx_slug {
     settings{
         additionalTables{
@@ -57,7 +57,7 @@ module.tx_slug {
             }
         }
     }
-}
+}`
 
 ## 5. Want to report an issue?
 
