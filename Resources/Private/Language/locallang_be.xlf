@@ -29,6 +29,32 @@
 			<trans-unit id="news.enabled">
 				<source>News enabled</source>
 			</trans-unit>
+                        
+                        
+			<trans-unit id="tree.enabled">
+				<source>Tree enabled</source>
+			</trans-unit>
+                        <trans-unit id="tree.depth">
+				<source>Tree depth</source>
+			</trans-unit>
+                        <trans-unit id="tree.root">
+				<source>Tree default root page uid</source>
+			</trans-unit>
+                        
+                        
+                        <trans-unit id="record.enabled">
+				<source>Custom records enabled</source>
+			</trans-unit>
+                        <trans-unit id="record.maxentries">
+				<source>Custom records initial max entries</source>
+			</trans-unit>
+                        <trans-unit id="record.orderby">
+				<source>Custom records order by</source>
+			</trans-unit>
+                        <trans-unit id="record.order">
+				<source>Custom records ordering</source>
+			</trans-unit>
+                        
 		</body>
 	</file>
 </xliff>
