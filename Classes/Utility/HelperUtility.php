@@ -118,7 +118,7 @@ class HelperUtility {
     }
     
     
-    public function returnUniqueSlug($type,$slug,$recordUid) {
+    public function returnUniqueSlug($type,$slug,$recordUid,$table,$slugField) {
                        
         switch ($type) {
             case 'page':
@@ -133,6 +133,13 @@ class HelperUtility {
                 $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
                 $record = $this->getRecordForSlugBuilding($recordUid, 'tx_news_domain_model_news');
                 $state = RecordStateFactory::forName('tx_news_domain_model_news')->fromArray($record, $record['pid'], $recordUid);
+                $uniqueSlug = $slugHelper->buildSlugForUniqueInSite($slug, $state); 
+                break;
+            case 'record':
+                $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$slugField]['config'];
+                $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, $table, $slugField, $fieldConfig);
+                $record = $this->getRecordForSlugBuilding($recordUid, $table);
+                $state = RecordStateFactory::forName($table)->fromArray($record, $record['pid'], $recordUid);
                 $uniqueSlug = $slugHelper->buildSlugForUniqueInSite($slug, $state); 
                 break;
             default:
