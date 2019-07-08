@@ -25,7 +25,6 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $sites;
     protected $backendConfiguration;
 
-
     /**
     * @param PageRepository $pageRepository
     */

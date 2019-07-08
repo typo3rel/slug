@@ -13,18 +13,6 @@ defaultOrder = DESC
 # cat=defaults; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:default.recordInfoEnabled
 recordInfoEnabled = 1
 
-# cat=news; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.enabled
-newsEnabled = 0
-
-# cat=news; type=options[10,20,30,40,50,60,70,80,90,100,150,200,300,400,500]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.maxentries
-newsMaxEntries = 10
-
-# cat=news; type=options[crdate,title,path_segment,sys_language_uid]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.orderby
-newsOrderBy = crdate
-
-# cat=news; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:news.order
-newsOrder = DESC
-
 
 # cat=tree; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:tree.enabled
 treeEnabled = 1

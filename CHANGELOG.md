@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2019-07-08
+- BREAKING: News module removed!
+- NEW: Add as many custom tables as you want simply by TypoScript!
+
 ## [1.0.15] - 2019-07-07
 - Added functionality to use ANY custom table from TypoScript settings, but this is only a BETA version for now!
 - Added sorting by timestamp (page field "tstamp") for page slugs

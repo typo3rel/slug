@@ -101,76 +101,10 @@ jQuery(document).ready(function(){
         
     }
     
-    // Generates a single news slug and puts it into the slug text input field
-    function generateNewsSlug(uid){
-        $('#generateNewsSlug-'+uid).prop('disabled', true);                
-        $.ajax({
-            url: TYPO3.settings.ajaxUrls['generateNewsSlug'],
-            method: 'GET',
-            dataType: 'json',
-            data: {
-                uid: uid
-            },
-            success: function(response) {
-                $('#generateNewsSlug-'+uid).prop('disabled', false);
-                if($('.slug-input-news.news-'+uid).val() === response.slug){
-                    top.TYPO3.Notification.info('No changes','The generated slug is the same like the original...');
-                }
-                else{
-                    $('.slug-input-news.news-'+uid).val(response.slug);
-                }
-            },
-            fail: function(response){
-                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
-            },
-            error: function(response){
-                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
-            }
-        });
-    }
-    
-    // Saves a single news record slug
-    function saveNewsSlug(slug,field,uid,btn){
-        btn.prop('disabled', true);
-        field.prop('disabled', true);            
-        $.ajax({
-            url: TYPO3.settings.ajaxUrls['saveNewsSlug'],
-            method: 'GET',
-            dataType: 'html',
-            data: { 
-                uid : uid, 
-                slug : slug
-            },
-            success: function(response) {
-                var responseArray = $.parseJSON(response);
-                btn.prop('disabled', false);
-                field.prop('disabled', false);
-                field.removeClass('has-been-changed');
-                if(responseArray.status === 1){
-                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
-                }
-                else{
-                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], slug);
-                }
-                $('.slug-input-news.news-'+uid).val(responseArray.slug);
-            },
-            fail: function(response){
-                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
-            },
-            error: function(response){
-                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
-                console.log("jQuery Ajax: " + response.statusText);
-            }
-        });
-        
-    }
     
     // Generates a single record slug and puts it into the slug text input field
     function generateRecordSlug(uid,table,slugField,titleField){
-        $('#generateNewsSlug-'+uid).prop('disabled', true);                
+        $('#generateRecordSlug-'+uid).prop('disabled', true);                
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generateRecordSlug'],
             method: 'GET',
@@ -332,13 +266,13 @@ jQuery(document).ready(function(){
         }
     });
     
-    $('button.generateAllNewsSlugs').on({
+    $('button.generateAllRecordSlugs').on({
         click: function(){
             if(confirm('Do you really want to re-generate all slugs?') === true){
                 var timer = 0;
-                $(this).prop('disabled', true);
-                $('button.saveAllNewsSlugs').prop('disabled', true);
-                $('button.generateNewsSlug').each(function(){
+                $(this,'button.saveAllRecordSlugs').prop('disabled', true);
+                $('button.saveAllRecordSlugs').prop('disabled', true);
+                $('button.generateRecordSlug').each(function(){
                     var btn = $(this);
                     setTimeout(function() {
                         btn.trigger('click');
@@ -346,42 +280,18 @@ jQuery(document).ready(function(){
                     timer++;
                 });
                 setTimeout(function() {
-                    $('button.generateAllNewsSlugs').prop('disabled', false);
-                    $('button.saveAllNewsSlugs').prop('disabled', false);
+                    $('button.generateAllRecordSlugs').prop('disabled', false);
+                    $('button.saveAllRecordSlugs').prop('disabled', false);
                     top.TYPO3.Notification.success('Done!', 'Bulk generation done');
                 }, (timer*1000));
             }
             else{
                 top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
             }
+            
         }
     });
     
-    $('button.saveAllNewsSlugs').on({
-        click: function(){
-            if(confirm('Do you really want to save all slugs?') === true){
-                var timer = 0;
-                $(this).prop('disabled', true);
-                $('button.generateAllNewsSlugs').prop('disabled', true);
-                $('button.saveNewsSlug').each(function(){
-                    var btn = $(this);
-                    setTimeout(function() {
-                        btn.trigger('click');
-                    }, (timer*1000));
-                    timer++;
-                });
-                setTimeout(function() {
-                    $('button.saveAllNewsSlugs').prop('disabled', false);
-                    $('button.generateAllNewsSlugs').prop('disabled', false);
-                    top.TYPO3.Notification.success('Done!', 'Bulk saving done');
-                }, (timer*1000));
-            }
-            else{
-                top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
-            }
-        }
-    });
-        
     $('button.savePageSlug').on({
         click: function(){
             uid = $(this).data('uid');
@@ -403,28 +313,6 @@ jQuery(document).ready(function(){
             }
             else{
                 savePageSlug(slugInputValue,slugInputField,uid,$(this));
-            }
-        }        
-    });
-    
-    $('button.saveNewsSlug').on({
-        click: function(){            
-            uid = $(this).data('uid');
-            slugInputField = $('.slug-input-news.news-'+uid);
-            slugInputValue = slugInputField.val();
-            if(slugInputValue.trim() === ''){
-                top.TYPO3.Notification.error('', slugNotes['notes.error.noslug']);
-            }
-            else if(slugInputValue.trim() === '/'){
-                if(confirm(slugNotes['notes.confirm.slashonly']) === false){
-                    top.TYPO3.Notification.info('Action aborted!', 'Maybe this was a good decision...');
-                }
-                else{
-                    saveNewsSlug(slugInputValue,slugInputField,uid,$(this));
-                }
-            }
-            else{
-                saveNewsSlug(slugInputValue,slugInputField,uid,$(this));
             }
         }        
     });
@@ -457,12 +345,6 @@ jQuery(document).ready(function(){
         }
     });
     
-    $('button.generateNewsSlug').on({
-        click: function(){
-            generateNewsSlug($(this).data('uid'));
-        }
-    });
-    
     $('button.generateRecordSlug').on({
         click: function(){
             generateRecordSlug($(this).data('uid'),$(this).data('table'),$(this).data('slugfield'),$(this).data('titlefield'));
@@ -479,10 +361,6 @@ jQuery(document).ready(function(){
     $('input.slug-input').change(function(){
         $(this).addClass('has-been-changed');
         slugExists($(this).val());
-    });
-    
-    $('input.slug-input-news').change(function(){
-        $(this).addClass('has-been-changed');
     });
     
     // Update all dynamic URLs when the slug textfield has been changed

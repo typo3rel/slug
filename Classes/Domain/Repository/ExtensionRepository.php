@@ -25,34 +25,6 @@ class ExtensionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     */
     protected $helper;
     
-
-    public function getNewsList($filterVariables) {
-        
-        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
-        
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
-        $query = $queryBuilder
-            ->select('*')
-            ->from('tx_news_domain_model_news')
-            ->orderBy($filterVariables['orderby'],$filterVariables['order']);
-            
-        if($filterVariables['key']){
-            $query->where(
-                $queryBuilder->expr()->like('path_segment',$queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($filterVariables['key']) . '%'))
-            );
-        }
-        
-        $statement = $query->execute();
-        $output = array();
-        while ($row = $statement->fetch()) {
-            $row['flag'] = $this->helper->getFlagIconByLanguageUid($row['sys_language_uid']);
-            $row['isocode'] = $this->helper->getIsoCodeByLanguageUid($row['sys_language_uid']);
-            array_push($output, $row);
-        }
-        return $output;
-    }
-    
-    
     public function checkIfTableExists($table){
         $tableExists = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable($table)

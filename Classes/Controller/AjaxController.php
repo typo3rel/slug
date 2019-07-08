@@ -62,29 +62,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @param ResponseInterface $response
      * @return ResponseInterface
      */
-    public function saveNewsSlug(\Psr\Http\Message\ServerRequestInterface $request)
-    {
-        $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
-        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
-        $slug = $this->helper->returnUniqueSlug('news', $queryParams['slug'], $queryParams['uid']);
-        $statement = $queryBuilder
-            ->update('tx_news_domain_model_news')
-            ->where(
-                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queryParams['uid'],\PDO::PARAM_INT))
-            )
-            ->set('path_segment',$slug) // Function "createNamedParameter" is NOT needed here!
-            ->execute();
-        $responseInfo['status'] = $statement;
-        $responseInfo['slug'] = $slug;
-        return new JsonResponse($responseInfo);
-    }
-    
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @return ResponseInterface
-     */
     public function saveRecordSlug(\Psr\Http\Message\ServerRequestInterface $request)
     {
         $queryParams = $request->getQueryParams();
@@ -149,35 +126,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             break;
         }
         $slug = $this->helper->returnUniqueSlug('page', $slugGenerated, $row['uid'], 'pages', 'slug');
-        $responseInfo['status'] = $statement;
-        $responseInfo['slug'] = $slug;
-        return new JsonResponse($responseInfo);
-    }
-    
-    /**
-     * function generateNewsSlug
-     *
-     * @return void
-     */
-    public function generateNewsSlug(\Psr\Http\Message\ServerRequestInterface $request)
-    {
-        $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
-        $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
-        $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
-        $queryParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
-        $statement = $queryBuilder
-            ->select('*')
-            ->from('tx_news_domain_model_news')
-            ->where(
-                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queryParams['uid'],\PDO::PARAM_INT))
-            )
-            ->execute();
-        while ($row = $statement->fetch()) {
-            $slugGenerated = $slugHelper->generate($row, $row['pid']);
-            break;
-        }
-        $slug = $this->helper->returnUniqueSlug('news', $slugGenerated, $row['uid']);
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slug;
         return new JsonResponse($responseInfo);
