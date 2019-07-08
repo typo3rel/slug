@@ -42,8 +42,8 @@ First of all important to know: Editing the slugs works only if the desired tabl
 Very important to know:
 * If you want to use an image symbol, make sure the image exists. The slug extension is currently NOT checking this!
 * You can only use tables that are correctly prepared for TYPO3 use
-    * The configuration array "$GLOBALS['TCA']['tx_your_table_name']['columns']['your_slug_field']['config']" needs to exist in the TYPO3 system. Otherwise the system will throw errors.
-    * The fields crdate,tstamp,uid AND your custom fields for the title and the slug need to exist in your table!
+    * The configuration array **$GLOBALS['TCA']['tx_your_table_name']['columns']['your_slug_field']['config']** needs to exist in the TYPO3 system. Otherwise the system will throw errors.
+    * The fields **crdate,tstamp,uid** AND your custom fields for the title and the slug need to exist in your table!
 
 Here's the TypoScript code you will need to make a custom table work. Put it into the setup of your root page.
 ```typoscript
