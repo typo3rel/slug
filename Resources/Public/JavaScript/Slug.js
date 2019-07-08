@@ -169,14 +169,17 @@ jQuery(document).ready(function(){
     }
     
     // Generates a single record slug and puts it into the slug text input field
-    function generateRecordSlug(uid){
+    function generateRecordSlug(uid,table,slugField,titleField){
         $('#generateNewsSlug-'+uid).prop('disabled', true);                
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generateRecordSlug'],
             method: 'GET',
             dataType: 'json',
             data: {
-                uid: uid
+                uid: uid,
+                table: table,
+                slugField: slugField,
+                titleField: titleField
             },
             success: function(response) {
                 $('#generateRecordSlug-'+uid).prop('disabled', false);
@@ -196,6 +199,45 @@ jQuery(document).ready(function(){
                 console.log("jQuery Ajax: " + response.statusText);
             }
         });
+    }
+    
+    // Saves a single record slug
+    function saveRecordSlug(slug,field,uid,btn){
+        btn.prop('disabled', true);
+        field.prop('disabled', true);            
+        $.ajax({
+            url: TYPO3.settings.ajaxUrls['saveRecordSlug'],
+            method: 'GET',
+            dataType: 'html',
+            data: { 
+                uid : uid, 
+                slug : slug, 
+                table : btn.data('table'),
+                slugField : btn.data('slugfield')
+            },
+            success: function(response) {
+                var responseArray = $.parseJSON(response);
+                btn.prop('disabled', false);
+                field.prop('disabled', false);
+                field.removeClass('has-been-changed');
+                if(responseArray.status === 1){
+                    top.TYPO3.Notification.success(slugNotes['notes.success.saved'], responseArray.slug);
+                }
+                else{
+                    top.TYPO3.Notification.info(slugNotes['notes.info.nochanges'], slug);
+                }
+                $('.slug-input-record.record-'+uid).val(responseArray.slug);
+            },
+            fail: function(response){
+                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
+                console.log("jQuery Ajax: " + response.statusText);
+            },
+            error: function(response){
+                top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);
+                console.log("jQuery Ajax: " + response.statusText);
+            }
+        });
+        
     }
     
     function updateDynamicPageUrls(uid,slug){
@@ -387,6 +429,28 @@ jQuery(document).ready(function(){
         }        
     });
     
+    $('button.saveRecordSlug').on({
+        click: function(){            
+            uid = $(this).data('uid');
+            slugInputField = $('.slug-input-record.record-'+uid);
+            slugInputValue = slugInputField.val();
+            if(slugInputValue.trim() === ''){
+                top.TYPO3.Notification.error('', slugNotes['notes.error.noslug']);
+            }
+            else if(slugInputValue.trim() === '/'){
+                if(confirm(slugNotes['notes.confirm.slashonly']) === false){
+                    top.TYPO3.Notification.info('Action aborted!', 'Maybe this was a good decision...');
+                }
+                else{
+                    saveRecordSlug(slugInputValue,slugInputField,uid,$(this));
+                }
+            }
+            else{
+                saveRecordSlug(slugInputValue,slugInputField,uid,$(this));
+            }
+        }        
+    });
+    
     $('button.generatePageSlug').on({
         click: function(){
             generatePageSlug($(this).data('uid'));
@@ -401,7 +465,7 @@ jQuery(document).ready(function(){
     
     $('button.generateRecordSlug').on({
         click: function(){
-            generateRecordSlug($(this).data('uid'));
+            generateRecordSlug($(this).data('uid'),$(this).data('table'),$(this).data('slugfield'),$(this).data('titlefield'));
         }
     });
     
