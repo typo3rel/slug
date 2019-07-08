@@ -44,8 +44,8 @@ Very important to know:
 - You can only use table that are correctly prepared for TYPO3 use. The configuration array "$GLOBALS['TCA']['tx_your_table_name']['columns']['your_slug_field']['config']" needs to exist in the TYPO3 system. Otherwise the system will throw errors.
 
 Here's the TypoScript code you will need to make a custom table work. Put it into the setup of your root page.
-
-`# Module configuration
+```typoscript
+# Module configuration
 module.tx_slug {
     settings{
         additionalTables{
@@ -57,8 +57,8 @@ module.tx_slug {
             }
         }
     }
-}`
-
+}
+```
 ## 5. Want to report an issue?
 
 - https://github.com/koehlersimon/slug/issues
