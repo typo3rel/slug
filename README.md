@@ -11,7 +11,8 @@ Please use the latest version from the official TYPO3 repository (https://extens
 
 ## 1. Features
 
-- Quickly edit, save and regenerate slugs for pages and news records
+- NEW in version 2: Add custom records of your extensions via TypoScript
+- Quickly edit, save and regenerate slugs for pages and other record types (new in Version 2)
 - Mass generation and storage of news slugs (up to 500 at once)
 - List views filterable with different parameters
 - Search engine entry Preview for pages, displays the updated slug as you type
@@ -35,6 +36,13 @@ Please use the latest version from the official TYPO3 repository (https://extens
 
 - The error "Argument 2 passed to TYPO3\CMS\Core\Imaging\IconFactory::getIconForRecord() must be of the type array, null given..." can be a result of "Unassigned site configurations"
 
-## 4. Want to report an issue?
+## 4. How can I edit the slugs of my own custom extension or any other 3rd party TYPO3-Extension?
+
+First of all important to know: Editing the slugs works only if the desired table contains a field for the title and a field for the slug. The names of the fields can be determined by TypoScript. But be careful. If you use a wrong field, the slug extension can destroy your data. I take no responsibility for it. So it's best not to test in a live web site before.
+Very important to know:
+- If you want to use an image symbol, make sure the image exists. The slug extension is currently NOT checking this!
+- You can only use table that are correctly prepared for TYPO3 use. The configuration array "$GLOBALS['TCA']['tx_your_table_name']['columns']['your_slug_field']['config']" needs to exist in the TYPO3 system. Otherwise the system will throw errors.
+
+## 5. Want to report an issue?
 
 - https://github.com/koehlersimon/slug/issues
