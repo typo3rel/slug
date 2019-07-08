@@ -11,39 +11,39 @@ Please use the latest version from the official TYPO3 repository (https://extens
 
 ## 1. Features
 
-- NEW in version 2: Add custom records of your extensions via TypoScript
-- Quickly edit, save and regenerate slugs for pages and other record types (new in Version 2)
-- Mass generation and storage of news slugs (up to 500 at once)
-- List views filterable with different parameters
-- Search engine entry Preview for pages, displays the updated slug as you type
-- Uses TYPO3 core slug generation functions
-- Extension configuration for default values like sorting, entries per page etc.
+* NEW in version 2: Add custom records of your extensions via TypoScript
+* Quickly edit, save and regenerate slugs for pages and other record types (new in Version 2)
+* Mass generation and storage of news slugs (up to 500 at once)
+* List views filterable with different parameters
+* Search engine entry Preview for pages, displays the updated slug as you type
+* Uses TYPO3 core slug generation functions
+* Extension configuration for default values like sorting, entries per page etc.
 
 ## 2. Usage
 
 ### Installation
 
-- Download the latest version here: https://extensions.typo3.org/extension/slug/ or install it with the extension manager of your TYPO3 installation
-- No further configuration is required, but you should delete all the backend caches after installation to make sure the extension is working properly.
+* Download the latest version here: https://extensions.typo3.org/extension/slug/ or install it with the extension manager of your TYPO3 installation
+* No further configuration is required, but you should delete all the backend caches after installation to make sure the extension is working properly.
 
 ## 3. Known problems
 
 ### Slug generation for News records failed?
 
-- If a news record has no pid set in the database, the slug generation will fail. This may happen when you have imported news records from a third party extension or manually. Solution: Check, if all entries in the table 'tx_news_domain_model_news' have the field 'pid' set to a page or folder in the page tree.
+* If a news record has no pid set in the database, the slug generation will fail. This may happen when you have imported news records from a third party extension or manually. Solution: Check, if all entries in the table 'tx_news_domain_model_news' have the field 'pid' set to a page or folder in the page tree.
 
 ### Error, when 'Unassigned site configurations' have been found
 
-- The error "Argument 2 passed to TYPO3\CMS\Core\Imaging\IconFactory::getIconForRecord() must be of the type array, null given..." can be a result of "Unassigned site configurations"
+* The error "Argument 2 passed to TYPO3\CMS\Core\Imaging\IconFactory::getIconForRecord() must be of the type array, null given..." can be a result of "Unassigned site configurations"
 
 ## 4. How can I edit the slugs of my own custom extension or any other 3rd party TYPO3-Extension?
 
 First of all important to know: Editing the slugs works only if the desired table contains a field for the title and a field for the slug. The names of the fields can be determined by TypoScript. But be careful. If you use a wrong field, the slug extension can destroy your data. I take no responsibility for it. So it's best not to test in a live web site before.
 Very important to know:
-- If you want to use an image symbol, make sure the image exists. The slug extension is currently NOT checking this!
-- You can only use tables that are correctly prepared for TYPO3 use
--- The configuration array "$GLOBALS['TCA']['tx_your_table_name']['columns']['your_slug_field']['config']" needs to exist in the TYPO3 system. Otherwise the system will throw errors.
--- The fields crdate,tstamp,uid AND your custom fields for the title and the slug need to exist in your table!
+* If you want to use an image symbol, make sure the image exists. The slug extension is currently NOT checking this!
+* You can only use tables that are correctly prepared for TYPO3 use
+    * The configuration array "$GLOBALS['TCA']['tx_your_table_name']['columns']['your_slug_field']['config']" needs to exist in the TYPO3 system. Otherwise the system will throw errors.
+    * The fields crdate,tstamp,uid AND your custom fields for the title and the slug need to exist in your table!
 
 Here's the TypoScript code you will need to make a custom table work. Put it into the setup of your root page.
 ```typoscript
