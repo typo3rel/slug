@@ -11,6 +11,7 @@
         <f:then>
 
             <f:form id="filter-list" method="POST">
+                <input type="hidden" name="tx_slug_site_slugslugs[table]" value="{table}">
                 <div class="row">
                     <div class="col-sm-3">
                         <h6>{f:translate(key:'filter.form.label.search_key', extensionName: slug)}</h6>
@@ -35,16 +36,19 @@
                 </div>
             </f:form>
 
+            <h3>{label} <small>{table}</small></h3>
+            
             <f:widget.paginate objects="{records}" as="recordsPaginated" configuration="{addQueryStringMethod: 'POST,GET', itemsPerPage: filter.maxentries, insertAbove: 1, maximumNumberOfLinks: 10}">
                 <table class="table table-hover">
                     <tr>
                         <th colspan="2"><span class="badge badge-info record-count" title="Number of records in the current view"></span></th>
                         <th colspan="2" style="text-align: right;">
                             <div class="btn-group">
+                                <f:comment>
                                 <button class="btn btn-default saveAllRecordSlugs" title="{f:translate(key:'button.saveall.title', extensionName: slug)}">
                                     <i class="fa fa-save"></i> {f:translate(key:'button.saveall.label', extensionName: slug)}
                                 </button>
-
+                                </f:comment>
                                 <button class="btn btn-default generateAllRecordSlugs" title="{f:translate(key:'button.generateall.title', extensionName: slug)}">
                                     <i class="fa fa-refresh"></i> {f:translate(key:'button.generateall.label', extensionName: slug)}
                                 </button>
@@ -69,10 +73,10 @@
                             </td>
                             <td nowrap>
                                 <div class="btn-group">
-                                    <button data-uid="{record.uid}" id="saveRecordSlug-{record.uid}" class="btn btn-default saveRecordSlug" title="{f:translate(key:'button.save.title', extensionName: slug)}">
+                                    <button data-uid="{record.uid}" data-table="{table}" data-slugfield="{slugField}" id="saveRecordSlug-{record.uid}" class="btn btn-default saveRecordSlug" title="{f:translate(key:'button.save.title', extensionName: slug)}">
                                         <i class="fa fa-save"></i>
                                     </button>
-                                    <button data-uid="{record.uid}" id="generateRecordSlug-{record.uid}" class="btn btn-default generateRecordSlug" title="{f:translate(key:'button.generate.title', extensionName: slug)}">
+                                    <button data-uid="{record.uid}" data-table="{table}" data-slugfield="{slugField}" data-titlefield="{titleField}" id="generateRecordSlug-{record.uid}" class="btn btn-default generateRecordSlug" title="{f:translate(key:'button.generate.title', extensionName: slug)}">
                                         <i class="fa fa-refresh"></i>
                                     </button>
                                 </div>
