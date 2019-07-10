@@ -2,9 +2,9 @@
     "name": "koehlersimon/slug",
     "description": "Helps you managing the URL slugs of your TYPO3 site",
     "type": "typo3-cms-extension",
-    "version": "1.0.13",
+    "version": "2.0.0",
     "require": {
-        "typo3/cms-core": "^9.5.0"
+        "typo3/cms-core": "9.5.*"
     },
     "authors": [
         {
