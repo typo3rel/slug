@@ -6,6 +6,19 @@
     "require": {
         "typo3/cms-core": "9.5.*"
     },
+    "keywords": [
+        "TYPO3",
+        "extension",
+        "slug",
+        "slugs",
+        "url",
+        "urltool",
+        "seo",
+        "seotool",
+        "tool",
+        "plugin"
+    ],
+    "homepage": "https://simon-koehler.com/",
     "authors": [
         {
             "name": "Simon Köhler",
