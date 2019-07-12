@@ -1,7 +1,7 @@
 <?php
 use GOCHILLA\Slug\Controller;
 
-/* 
+/*
  * This file was created by Simon Köhler
  * at GOCHILLA s.a.
  * www.gochilla.com

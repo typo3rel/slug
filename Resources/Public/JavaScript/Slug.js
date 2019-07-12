@@ -292,6 +292,31 @@ jQuery(document).ready(function(){
         }
     });
     
+    $('button.saveAllRecordSlugs').on({
+        click: function(){
+            if(confirm('Do you really want to save/overwrite all slugs?') === true){
+                var timer = 0;
+                $(this).prop('disabled', true);
+                $('button.generateAllRecordSlugs').prop('disabled', true);
+                $('button.saveRecordSlug').each(function(){
+                    var btn = $(this);
+                    setTimeout(function() {
+                        btn.trigger('click');
+                    }, (timer*500));
+                    timer++;
+                });
+                setTimeout(function() {
+                    $('button.saveAllRecordSlugs').prop('disabled', false);
+                    $('button.generateAllRecordSlugs').prop('disabled', false);
+                    top.TYPO3.Notification.success('Done!', 'Bulk saving done');
+                }, (timer*500));
+            }
+            else{
+                top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
+            }
+        }
+    });
+    
     $('button.savePageSlug').on({
         click: function(){
             uid = $(this).data('uid');
