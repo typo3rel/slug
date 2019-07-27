@@ -1,18 +1,14 @@
-/* 
- * This file was created by Simon Köhler
- * at GOCHILLA s.a.
- * www.gochilla.com
- */
+// This file was created by Simon Köhler
 
 jQuery(document).ready(function(){
-    
+
     // Checks, if a slug already exists
     function slugExists(slug){
         $.ajax({
             url: TYPO3.settings.ajaxUrls['slugExists'],
             method: 'GET',
             dataType: 'html',
-            data: { 
+            data: {
                 slug : slug
             },
             success: function(response) {
@@ -30,7 +26,7 @@ jQuery(document).ready(function(){
             }
         });
     }
-    
+
     // Generates a single page slug and puts it into the slug text input field with the same id
     function generatePageSlug(uid){
         console.log(TYPO3.settings.ajaxUrls['generatePageSlug']);
@@ -39,7 +35,7 @@ jQuery(document).ready(function(){
             url: TYPO3.settings.ajaxUrls['generatePageSlug'],
             method: 'GET',
             dataType: 'json',
-            data: { 
+            data: {
                 uid : uid
             },
             success: function(response) {
@@ -57,19 +53,19 @@ jQuery(document).ready(function(){
             }
         });
     }
-    
+
     // Saves a single page slug and refreshes all dynamic slug containers
     function savePageSlug(slug,field,uid,btn){
         btn.prop('disabled', true);
         field.prop('disabled', true);
-        
+
         console.log([slug,uid]);
-        
+
         $.ajax({
             url: TYPO3.settings.ajaxUrls['savePageSlug'],
             method: 'GET',
             dataType: 'json',
-            data: { 
+            data: {
                 uid : uid,
                 slug : slug
             },
@@ -98,13 +94,13 @@ jQuery(document).ready(function(){
                 console.log(response);
             }
         });
-        
+
     }
-    
-    
+
+
     // Generates a single record slug and puts it into the slug text input field
     function generateRecordSlug(uid,table,slugField,titleField){
-        $('#generateRecordSlug-'+uid).prop('disabled', true);                
+        $('#generateRecordSlug-'+uid).prop('disabled', true);
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generateRecordSlug'],
             method: 'GET',
@@ -134,18 +130,18 @@ jQuery(document).ready(function(){
             }
         });
     }
-    
+
     // Saves a single record slug
     function saveRecordSlug(slug,field,uid,btn){
         btn.prop('disabled', true);
-        field.prop('disabled', true);            
+        field.prop('disabled', true);
         $.ajax({
             url: TYPO3.settings.ajaxUrls['saveRecordSlug'],
             method: 'GET',
             dataType: 'html',
-            data: { 
-                uid : uid, 
-                slug : slug, 
+            data: {
+                uid : uid,
+                slug : slug,
                 table : btn.data('table'),
                 slugField : btn.data('slugfield')
             },
@@ -171,14 +167,14 @@ jQuery(document).ready(function(){
                 console.log("jQuery Ajax: " + response.statusText);
             }
         });
-        
+
     }
-    
+
     function updateDynamicPageUrls(uid,slug){
         $('.dynamic-slug-'+uid).find('.slug').html(slug);
     }
-    
-    
+
+
     // Loads the slugs for all Languages
     function loadTreeItemSlugs(uid){
         $.ajax({
@@ -213,8 +209,8 @@ jQuery(document).ready(function(){
             }
         });
     }
-    
-    
+
+
     $('button.generateAllPageSlugs').on({
         click: function(){
             if(confirm('Do you really want to re-generate all slugs?') === true){
@@ -237,10 +233,10 @@ jQuery(document).ready(function(){
             else{
                 top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
             }
-            
+
         }
     });
-    
+
     $('button.saveAllPageSlugs').on({
         click: function(){
             if(confirm('Do you really want to save/overwrite all slugs?') === true){
@@ -265,7 +261,7 @@ jQuery(document).ready(function(){
             }
         }
     });
-    
+
     $('button.generateAllRecordSlugs').on({
         click: function(){
             if(confirm('Do you really want to re-generate all slugs?') === true){
@@ -288,10 +284,10 @@ jQuery(document).ready(function(){
             else{
                 top.TYPO3.Notification.info('Aborted', 'Maybe this was a good decision');
             }
-            
+
         }
     });
-    
+
     $('button.saveAllRecordSlugs').on({
         click: function(){
             if(confirm('Do you really want to save/overwrite all slugs?') === true){
@@ -316,7 +312,7 @@ jQuery(document).ready(function(){
             }
         }
     });
-    
+
     $('button.savePageSlug').on({
         click: function(){
             uid = $(this).data('uid');
@@ -339,11 +335,11 @@ jQuery(document).ready(function(){
             else{
                 savePageSlug(slugInputValue,slugInputField,uid,$(this));
             }
-        }        
+        }
     });
-    
+
     $('button.saveRecordSlug').on({
-        click: function(){            
+        click: function(){
             uid = $(this).data('uid');
             slugInputField = $('.slug-input-record.record-'+uid);
             slugInputValue = slugInputField.val();
@@ -361,38 +357,38 @@ jQuery(document).ready(function(){
             else{
                 saveRecordSlug(slugInputValue,slugInputField,uid,$(this));
             }
-        }        
+        }
     });
-    
+
     $('button.generatePageSlug').on({
         click: function(){
             generatePageSlug($(this).data('uid'));
         }
     });
-    
+
     $('button.generateRecordSlug').on({
         click: function(){
             generateRecordSlug($(this).data('uid'),$(this).data('table'),$(this).data('slugfield'),$(this).data('titlefield'));
         }
     });
-    
+
     $('button.slugInfo').on({
         click: function(){
             var uid = $(this).data('uid');
             $('.record-info-container[data-uid="'+uid+'"]').parent().parent().toggleClass('visible');
         }
     });
-    
+
     $('input.slug-input').change(function(){
         $(this).addClass('has-been-changed');
         slugExists($(this).val());
     });
-    
+
     // Update all dynamic URLs when the slug textfield has been changed
     $('input.slug-input').keyup(function(){
         updateDynamicPageUrls($(this).data('uid'),$(this).val());
     });
-    
+
     // Count and show the current number of listed items
     $('.record-count').html($('td.slug-input').length);
 
@@ -407,5 +403,5 @@ jQuery(document).ready(function(){
             return false;
         }
     });
-    
+
 });

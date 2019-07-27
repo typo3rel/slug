@@ -2,6 +2,6 @@
 
 return [
     'slug:generate' => [
-        'class' => \GOCHILLA\Slug\Command\GenerateCommand::class
+        'class' => \SIMONKOEHLER\Slug\Command\GenerateCommand::class
     ],
 ];

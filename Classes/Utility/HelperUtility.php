@@ -1,5 +1,5 @@
 <?php
-namespace GOCHILLA\Slug\Utility;
+namespace SIMONKOEHLER\Slug\Utility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;

@@ -8,7 +8,7 @@ call_user_func(
         if (TYPO3_MODE === 'BE') {
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'GOCHILLA.Slug',
+                'SIMONKOEHLER.Slug',
                 'site',
                 'slugs',
                 '',
@@ -28,4 +28,3 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('slug', 'Configuration/TypoScript', 'Slug');
     }
 );
- 

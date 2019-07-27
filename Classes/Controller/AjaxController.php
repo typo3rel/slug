@@ -1,6 +1,6 @@
 <?php
-namespace GOCHILLA\Slug\Controller;
-use GOCHILLA\Slug\Utility\HelperUtility;
+namespace SIMONKOEHLER\Slug\Controller;
+use SIMONKOEHLER\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
@@ -13,7 +13,7 @@ use TYPO3\CMS\Core\Http\JsonResponse;
  * This file was created by Simon Köhler
  * https://simon-koehler.com
  */
- 
+
 class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
     /**

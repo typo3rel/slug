@@ -1,5 +1,5 @@
 <?php
-namespace GOCHILLA\Slug\Domain\Model;
+namespace SIMONKOEHLER\Slug\Domain\Model;
 
 /*
  * This file was created by Simon Köhler

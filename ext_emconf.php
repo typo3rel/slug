@@ -1,9 +1,5 @@
 <?php
 
-/***************************************************************
- * Config file for ext: "slug" by Simon Köhler
- ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Slug',
     'description' => 'Helps managing the URL slugs of your TYPO3 pages and custom records!',

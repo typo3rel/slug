@@ -1,5 +1,5 @@
 <?php
-namespace GOCHILLA\Slug\Domain\Repository;
+namespace SIMONKOEHLER\Slug\Domain\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Site\SiteFinder;
@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\Exception\SiteNotFoundException;
  * This file was created by Simon Köhler
  * https://simon-koehler.com
  */
- 
+
 class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
     protected $table = 'pages';

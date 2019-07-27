@@ -1,6 +1,6 @@
 <?php
-namespace GOCHILLA\Slug\Domain\Repository;
-use GOCHILLA\Slug\Utility\HelperUtility;
+namespace SIMONKOEHLER\Slug\Domain\Repository;
+use SIMONKOEHLER\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 
@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  * This file was created by Simon Köhler
  * https://simon-koehler.com
  */
- 
+
 class ExtensionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
     /**

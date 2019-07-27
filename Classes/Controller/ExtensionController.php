@@ -1,7 +1,7 @@
 <?php
-namespace GOCHILLA\Slug\Controller;
-use GOCHILLA\Slug\Utility\HelperUtility;
-use GOCHILLA\Slug\Domain\Repository\ExtensionRepository;
+namespace SIMONKOEHLER\Slug\Controller;
+use SIMONKOEHLER\Slug\Utility\HelperUtility;
+use SIMONKOEHLER\Slug\Domain\Repository\ExtensionRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 

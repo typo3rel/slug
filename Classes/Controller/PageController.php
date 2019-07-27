@@ -1,7 +1,7 @@
 <?php
-namespace GOCHILLA\Slug\Controller;
-use GOCHILLA\Slug\Utility\HelperUtility;
-use GOCHILLA\Slug\Domain\Repository\PageRepository;
+namespace SIMONKOEHLER\Slug\Controller;
+use SIMONKOEHLER\Slug\Utility\HelperUtility;
+use SIMONKOEHLER\Slug\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

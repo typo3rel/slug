@@ -1,5 +1,5 @@
 <?php
-use GOCHILLA\Slug\Controller;
+use SIMONKOEHLER\Slug\Controller;
 
 /*
  * This file was created by Simon Köhler
