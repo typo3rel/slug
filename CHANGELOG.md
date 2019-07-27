@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2019-07-27
+- BUGFIX: Fixed bug in TCA fields, thanks to @Teddytrombone on Github
+- Several code clean ups
+
 ## [2.0.0] - 2019-07-08
 - BREAKING: News module removed!
 - NEW: Add as many custom tables as you want simply by TypoScript!
@@ -47,7 +51,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - Removed Ajax Route 'getPageInfo' and Action in 'AjaxController.php' because it is no longer needed at the moment
 - Removed function 'googlePreview' from 'AjaxController.php'
-- Removed function 'getNewsRecordInfo' from 'AjaxController.php' 
+- Removed function 'getNewsRecordInfo' from 'AjaxController.php'
 
 ### Added
 - Possibiliy to disable the 'additional record info' button in Pages list in global Extension configuration
@@ -93,7 +97,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.7] - 2019-01-01
 
-### Changed 
+### Changed
 - Initial release of the beta version after some testing
 
 ### Added

@@ -5,26 +5,17 @@ use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 
-/***
- *
- * This file is part of the "Slug" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Simon Köhler <info@simon-koehler.com>, GOCHILLA s.a.
- *
- ***/
-
-/**
- * The repository for Pages
+/*
+ * This file was created by Simon Köhler
+ * https://simon-koehler.com
  */
-class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
  
+class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+
     protected $table = 'pages';
     protected $fieldName = 'slug';
     protected $languages;
-    
+
     public function findAllFiltered($filterVariables) {
         $this->languages = $this->getLanguages();
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('pages');
@@ -32,7 +23,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
             ->select('*')
             ->from('pages')
             ->orderBy($filterVariables['orderby'],$filterVariables['order']);
-        
+
         if($filterVariables['key']){
             $query->where(
                 $queryBuilder->expr()->like('slug',$queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($filterVariables['key']) . '%'))
@@ -55,8 +46,8 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         }
         return $output;
     }
-    
-    
+
+
     private function getFlagIconByLanguageUid($sys_language_uid) {
         foreach ($this->languages as $value) {
             if($value['uid'] === $sys_language_uid){
@@ -70,8 +61,8 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         }
         return $output;
     }
-    
-    
+
+
     private function getIsoCodeByLanguageUid($sys_language_uid) {
         foreach ($this->languages as $value) {
             if($value['uid'] === $sys_language_uid){
@@ -85,9 +76,9 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         }
         return $output;
     }
-    
-    
-    public function getLanguages(){        
+
+
+    public function getLanguages(){
         $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('sys_language');
         $statement = $queryBuilder
             ->select('*')
@@ -99,5 +90,5 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         }
         return $output;
     }
-   
+
 }

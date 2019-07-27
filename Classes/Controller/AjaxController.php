@@ -9,24 +9,18 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Http\HtmlResponse;
 use TYPO3\CMS\Core\Http\JsonResponse;
 
-/**
- * Ajax class for slug module
- *
- * This class contains all functions to perform the ajax requests
- *
- * @category   Module
- * @package    Slug
- * @author     Simon Köhler <info@simon-koehler.com>
- * @copyright  2018-2019 GOCHILLA s.a.
+/*
+ * This file was created by Simon Köhler
+ * https://simon-koehler.com
  */
-
+ 
 class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-    
+
     /**
      * @var HelperUtility
      */
     protected $helper;
-    
+
     /**
      * function savePageSlug
      *
@@ -45,7 +39,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             )
             ->set('slug',$slug) // Function "createNamedParameter" is NOT needed here!
             ->execute();
-          
+
         if($statement){
             $responseInfo['status'] = '1';
             $responseInfo['slug'] = $slug;
@@ -56,7 +50,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         }
         return new JsonResponse($responseInfo);
     }
-    
+
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
@@ -68,7 +62,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $uid = $queryParams['uid'];
         $table = $queryParams['table'];
         $slug = $queryParams['slug'];
-        $slugField  = $queryParams['slugField'];        
+        $slugField  = $queryParams['slugField'];
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
         $statement = $queryBuilder
             ->update($table)
@@ -81,7 +75,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $responseInfo['slug'] = $slug;
         return new JsonResponse($responseInfo);
     }
-    
+
     /**
      * function slugExists
      *
@@ -101,7 +95,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ->fetchColumn(0);
         return new HtmlResponse($result);
     }
-    
+
     /**
      * function generatePageSlug
      *
@@ -130,7 +124,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $responseInfo['slug'] = $slug;
         return new JsonResponse($responseInfo);
     }
-    
+
     /**
      * function generateRecordSlug
      *
@@ -143,11 +137,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $table = $queryParams['table'];
         $slugField  = $queryParams['slugField'];
         $titleField  = $queryParams['titleField'];
-        
+
         $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$slugField]['config'];
         $slugHelper = GeneralUtility::makeInstance(SlugHelper::class, $table, $slugField, $fieldConfig);
         $this->helper = GeneralUtility::makeInstance(HelperUtility::class);
-        
+
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $statement = $queryBuilder
             ->select('*')
@@ -160,12 +154,12 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $slugGenerated = $slugHelper->sanitize($row[$titleField]);
             break;
         }
-        
+
         $responseInfo['status'] = $statement;
         $responseInfo['slug'] = $slugGenerated;
         return new JsonResponse($responseInfo);
     }
-    
+
     /**
      * function loadTreeItemSlugs
      *
@@ -201,5 +195,5 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $html .= '</div>';
         return new HtmlResponse($html);
     }
-    
+
 }

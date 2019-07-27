@@ -10,14 +10,13 @@ use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Backend\Tree\View\PageTreeView;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
-/* 
+/*
  * This file was created by Simon Köhler
- * at GOCHILLA s.a.
- * www.gochilla.com
+ * https://simon-koehler.com
  */
 
 class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-    
+
     public $pageRepository;
     protected $iconFactory;
     protected $helper;
@@ -35,13 +34,13 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
          $this->backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('slug');
          $this->sites = GeneralUtility::makeInstance(SiteFinder::class)->getAllSites();
     }
-    
+
     /**
      * List all slugs from the pages table
      */
     protected function listAction()
     {
-        
+
         // Check if filter variables are available, otherwise set default values from ExtensionConfiguration
         if($this->request->hasArgument('filter')){
             $filterVariables = $this->request->getArgument('filter');
@@ -52,7 +51,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $filterVariables['order'] = $this->backendConfiguration['defaultOrder'];
             $filterVariables['key'] = '';
         }
-                
+
         // Set the order by options for fluid viewhelper f:form.switch
         $filterOptions['orderby'] = [
             ['value' => 'crdate', 'label' => $this->helper->getLangKey('filter.form.select.option.creation_date')],
@@ -63,12 +62,12 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ['value' => 'is_siteroot', 'label' => $this->helper->getLangKey('filter.form.select.option.is_siteroot')],
             ['value' => 'doktype', 'label' => $this->helper->getLangKey('filter.form.select.option.doktype')]
         ];
-        
+
         $filterOptions['order'] = [
             ['value' => 'DESC', 'label' => $this->helper->getLangKey('filter.form.select.option.descending')],
             ['value' => 'ASC', 'label' => $this->helper->getLangKey('filter.form.select.option.ascending')]
         ];
-        
+
         $filterOptions['maxentries'] = [
             ['value' => '10', 'label' => '10'],
             ['value' => '20', 'label' => '20'],
@@ -86,7 +85,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             ['value' => '400', 'label' => '400'],
             ['value' => '500', 'label' => '500']
         ];
-        
+
         $this->view->assignMultiple([
             'pages' => $this->pageRepository->findAllFiltered($filterVariables),
             'filter' => $filterVariables,
@@ -96,23 +95,23 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             'filterOptions' => $filterOptions,
             'additionalTables' => $this->settings['additionalTables']
         ]);
-        
+
     }
-    
-    
+
+
     /**
      * Generate a tree view
      */
     protected function treeAction()
     {
-        
+
         if($this->request->hasArgument('siteRoot')){
             $siteRoot = $this->request->getArgument('siteRoot');
         }
         else{
             $siteRoot = $this->backendConfiguration['treeDefaultRoot'];
         }
-        
+
         if(!$siteRoot || $siteRoot === 0){
             //Get the first existing site in the root level and its uid
             foreach ($this->sites as $site) {
@@ -120,27 +119,27 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
                 break;
             }
         }
-                
+
         if($this->request->hasArgument('depth')){
             $depth = $this->request->getArgument('depth');
         }
         else{
             $depth = $this->backendConfiguration['treeDefaultDepth'];
         }
-        
+
         if($siteRoot){
             $args['siteRoot'] = $siteRoot;
             $args['depth'] = $depth;
             $siteRootRecord = BackendUtility::getRecord('pages',$siteRoot);
             $tree = GeneralUtility::makeInstance(PageTreeView::class);
-            $tree->init('AND ' . $GLOBALS['BE_USER']->getPagePermsClause(1));         
+            $tree->init('AND ' . $GLOBALS['BE_USER']->getPagePermsClause(1));
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
             $icon = '<span class="page-icon">' . $iconFactory->getIconForRecord('pages', $siteRootRecord, Icon::SIZE_SMALL)->render() . '</span>';
             $tree->tree[] = array(
                 'row' => $siteRootRecord,
                 'icon' => $icon
             );
-            $tree->getTree($siteRoot,$depth,'');                
+            $tree->getTree($siteRoot,$depth,'');
             $this->view->assignMultiple([
                 'tree' => $tree->tree,
                 'backendConfiguration' => $this->backendConfiguration,
@@ -152,7 +151,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         else{
             $this->addFlashMessage('Error: No Site root found! PageController.php Line 130');
         }
-        
+
     }
-    
+
 }

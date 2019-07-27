@@ -1,66 +1,57 @@
 <?php
 namespace GOCHILLA\Slug\Domain\Model;
 
-/***
- *
- * This file is part of the "Slug" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Simon Köhler <info@simon-koehler.com>, GOCHILLA s.a.
- *
- ***/
-
-/**
- * Page
+/*
+ * This file was created by Simon Köhler
+ * https://simon-koehler.com
  */
+
 class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-    
+
     /**
     * @var string
     */
     protected $title;
-    
+
     /**
     * @var integer
     */
     protected $uid;
-    
+
     /**
     * @var integer
     */
     protected $l10nParent;
-    
+
     /**
     * @var integer
     */
     protected $doktype;
-    
+
     /**
     * @var integer
     */
     protected $language;
-    
+
     /**
      * Determines if a page is hidden
      *
      * @var bool
      */
     protected $hidden = false;
-    
+
     /**
     * @var string
     */
     protected $slug;
-    
+
     /**
      * Determines if a page is a site root
      *
      * @var bool
      */
     protected $isSiteroot = false;
-    
+
     /**
      * Lock the slug, so that it can not be edited or overwritten by any other
      * function.
@@ -108,7 +99,7 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     {
         return $this->language;
     }
-    
+
     /**
      * Returns the hidden
      *
@@ -118,7 +109,7 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     {
         return $this->hidden;
     }
-    
+
     /**
      * Returns the isSiteroot
      *
@@ -138,7 +129,7 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     {
         return $this->slug;
     }
-    
+
     /**
      * Returns the slugLock
      *
@@ -169,7 +160,7 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     {
         return $this->slugLock;
     }
-    
+
     /**
      * Returns the title of the page
      *
@@ -178,5 +169,5 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function getTitle() {
 	return $this->title;
     }
- 
+
 }

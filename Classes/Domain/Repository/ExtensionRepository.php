@@ -4,20 +4,11 @@ use GOCHILLA\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 
-/***
- *
- * This file is part of the "Slug" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Simon Köhler <info@simon-koehler.com>, GOCHILLA s.a.
- *
- ***/
-
-/**
- * The Extension repository
+/*
+ * This file was created by Simon Köhler
+ * https://simon-koehler.com
  */
+ 
 class ExtensionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
     /**
