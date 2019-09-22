@@ -29,7 +29,7 @@ jQuery(document).ready(function(){
 
     // Generates a single page slug and puts it into the slug text input field with the same id
     function generatePageSlug(uid){
-        console.log(TYPO3.settings.ajaxUrls['generatePageSlug']);
+        //console.log(TYPO3.settings.ajaxUrls['generatePageSlug']);
         $('#generatePageSlug-'+uid).prop('disabled', true);
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generatePageSlug'],
@@ -58,9 +58,6 @@ jQuery(document).ready(function(){
     function savePageSlug(slug,field,uid,btn){
         btn.prop('disabled', true);
         field.prop('disabled', true);
-
-        console.log([slug,uid]);
-
         $.ajax({
             url: TYPO3.settings.ajaxUrls['savePageSlug'],
             method: 'GET',
@@ -82,7 +79,6 @@ jQuery(document).ready(function(){
                 $('.dynamic-slug-'+uid).find('.slug').html(response.slug);
                 $('.dynamic-slug-'+uid).attr('href', $('.dynamic-slug-'+uid).data('baselink')+response.slug);
                 $('.slug-input.page-'+uid).val(response.slug);
-                console.log(response);
             },
             fail: function(response){
                 top.TYPO3.Notification.error('Ajax Error', slugNotes['notes.error.ajax'] + '' + response.statusText);

@@ -14,7 +14,7 @@ module.tx_slug {
     }
     settings{
         additionalTables{
-            
+
             /*
             tx_news_domain_model_news{
                 label = News
@@ -23,7 +23,7 @@ module.tx_slug {
                 icon = EXT:news/Resources/Public/Icons/news_domain_model_news.svg
             }
             */
-        
+
         }
     }
 }
