@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 - BUGFIX: Fixed bug in TCA fields, thanks to @Teddytrombone on Github
 - Changed namespace from "GOCHILLA" to "SIMONKOEHLER", so please empty autoload cache after update from version 2.0.0
 - Several code clean ups
+- Bugfix: Solved title problems with custom records. Issue #15 on GitHub, thanks @alex-boehm
 
 ## [2.0.0] - 2019-07-08
 - BREAKING: News module removed!

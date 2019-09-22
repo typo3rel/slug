@@ -31,6 +31,12 @@ jQuery(document).ready(function(){
     function generatePageSlug(uid){
         //console.log(TYPO3.settings.ajaxUrls['generatePageSlug']);
         $('#generatePageSlug-'+uid).prop('disabled', true);
+        if(slugHasSlash(uid)){
+            console.log("HAS slash");
+        }
+        else{
+            console.log("Has NO slash");
+        }
         $.ajax({
             url: TYPO3.settings.ajaxUrls['generatePageSlug'],
             method: 'GET',
@@ -52,6 +58,16 @@ jQuery(document).ready(function(){
                 console.log(response);
             }
         });
+    }
+
+    function slugHasSlash(uid){
+        var slug = $('.slug-input.page-'+uid).val();
+        if(slug.includes("/") || slug.includes(" / ")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     // Saves a single page slug and refreshes all dynamic slug containers
