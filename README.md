@@ -11,6 +11,7 @@ Please use the latest version from the official TYPO3 repository (https://extens
 
 ## Features
 
+* NEW in version 2.0.1: List only custom records from a specific page or folder, by using the "pid" parameter
 * NEW in version 2: Add custom records of your extensions via TypoScript (see manual below)
 * Quickly edit, save and regenerate slugs for pages and other record types (new in Version 2)
 * Mass generation and storage of news slugs (up to 500 at once)
@@ -42,6 +43,7 @@ module.tx_slug {
     settings{
         additionalTables{
             tx_news_domain_model_news{
+                pid = 0
                 label = News
                 slugField = path_segment
                 titleField = title
