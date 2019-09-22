@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [2.0.1] - 2019-07-27
+- Added new option to custom records: By setting "pid=" only records from the related parent page will be shown
 - BUGFIX: Fixed bug in TCA fields, thanks to @Teddytrombone on Github
 - Changed namespace from "GOCHILLA" to "SIMONKOEHLER", so please empty autoload cache after update from version 2.0.0
 - Several code clean ups

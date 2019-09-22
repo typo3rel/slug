@@ -40,9 +40,17 @@ class ExtensionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
             ->from($table)
             ->orderBy($filterVariables['orderby'],$filterVariables['order']);
 
+        // If a search key is given
         if($filterVariables['key']){
             $query->where(
                 $queryBuilder->expr()->like($tableConf['slugField'],$queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($filterVariables['key']) . '%'))
+            );
+        }
+
+        // If a PID is given via TypoScript configuration
+        if($tableConf['pid']){
+            $query->where(
+                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($tableConf['pid'], \PDO::PARAM_INT))
             );
         }
 
