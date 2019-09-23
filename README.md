@@ -5,11 +5,11 @@ Official Repository of the 'slug' Backend Module for TYPO3 9.5
 
 The Slug backend module is designed to help manage large amounts of slugs for pages and extension records. Currently, it provides a simple list for pages and custom records, which can be filtered with different parameters. Slugs can be edited and saved quickly and efficiently. The modules regenerate or save **all slugs of the current list view** with just one click. I have tested the functionality with 500 empty news records so far, without any problem.
 
-## Important Note
+## INTRODUCTION
 
 Please use the latest version from the official TYPO3 repository (https://extensions.typo3.org/extension/slug/), if you want to make sure that nothing happens to your website. In any case I highly recommend a database backup if you want to work in a live website!!! If you use the current version from github, you use it at your own risk!
 
-## Features
+## FEATURES
 
 * NEW in version 2.0.1: List only custom records from a specific page or folder, by using the "pid" parameter
 * NEW in version 2: Add custom records of your extensions via TypoScript (see manual below)
@@ -20,7 +20,7 @@ Please use the latest version from the official TYPO3 repository (https://extens
 * Uses TYPO3 core slug generation functions
 * Extension configuration for default values like sorting, entries per page etc.
 
-## Usage
+## USAGE
 
 ### Installation
 
@@ -54,19 +54,22 @@ module.tx_slug {
 }
 ```
 
-## Known problems
+## KNOWN PROBLEMS
+
+### Uncaught TYPO3 Exception: #1278450972: Class SIMONKOEHLER\Slug\Controller\PageController does not exist. Reflection failed.
+This exception occurs after upgrading the extension from 2.0.0 to 2.0.xx because the most important namespaces in the extbase PHP code have changed. Therefore, it is essential to clear the system's main cache and autoload data.
 
 ### Slug generation for News records failed?
 
-* If a news record has no pid set in the database, the slug generation will fail. This may happen when you have imported news records from a third party extension or manually. Solution: Check, if all entries in the table 'tx_news_domain_model_news' have the field 'pid' set to a page or folder in the page tree.
+If a news record has no pid set in the database, the slug generation will fail. This may happen when you have imported news records from a third party extension or manually. Solution: Check, if all entries in the table 'tx_news_domain_model_news' have the field 'pid' set to a page or folder in the page tree.
 
 ### Error, when 'Unassigned site configurations' have been found
 
-* The error "Argument 2 passed to TYPO3\CMS\Core\Imaging\IconFactory::getIconForRecord() must be of the type array, null given..." can be a result of "Unassigned site configurations"
+The error "Argument 2 passed to TYPO3\CMS\Core\Imaging\IconFactory::getIconForRecord() must be of the type array, null given..." can be a result of "Unassigned site configurations"
 
 ## Want to report an issue?
 
-- https://github.com/koehlersimon/slug/issues
+https://github.com/koehlersimon/slug/issues
 
 ## All other requests
 
