@@ -29,7 +29,9 @@ Please use the latest version from the official TYPO3 repository (https://extens
 
 ## CUSTOM RECORDS
 
-First of all important to know: Editing the slugs works only if the desired table contains a field for the title and a field for the slug. The names of the fields can be determined by TypoScript. But be careful. If you use a wrong field, the slug extension can destroy your data. I take no responsibility for it. So it's best not to test in a live web site before.
+Note: To enable custom records functionality, you must activate the checkbox "Custom records enabled" in the extension settings panel!
+
+Important to know: Editing the slugs works only if the desired table contains a field for the title and a field for the slug. The names of the fields can be determined by TypoScript. But be careful. If you use a wrong field, the slug extension can destroy your data. I take no responsibility for it. So it's best not to test in a live web site before.
 Very important to know:
 * If you want to use an image symbol, make sure the image exists. The slug extension is currently NOT checking this!
 * You can only use tables that are correctly prepared for TYPO3 use
@@ -74,3 +76,7 @@ https://github.com/koehlersimon/slug/issues
 ## All other requests
 
 **Contact:** https://simon-koehler.com/en/contact
+
+## Do you want to learn TYPO3? Here's what you need:
+Video Training TYPO3 9 LTS (German language)
+https://www.digistore24.com/redir/246076/GOCHILLA/
