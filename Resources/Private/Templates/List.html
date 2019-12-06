@@ -6,7 +6,7 @@
 
     <f:flashMessages />
     <f:render partial="GlobalHeader" arguments="{_all}"/>
-    
+
     <f:form id="filter-list" method="POST">
         <div class="row">
             <div class="col-sm-3">
@@ -69,7 +69,7 @@
                         <f:render partial="PageUrl" arguments="{page:page}"/>
                     </td>
                     <td>
-                        <core:icon identifier="flags-{page.flag}" size="small" /> 
+                        <core:icon identifier="flags-{page.flag}" size="small" />
                     </td>
                     <td class="slug-input">
                         <f:render partial="SlugInput" arguments="{page:page}"/>
@@ -84,7 +84,7 @@
                                 <button data-uid="{page.uid}" id="generatePageSlug-{page.uid}" class="btn btn-default generatePageSlug" title="{f:translate(key:'button.generate.title', extensionName: slug)}">
                                     <i class="fa fa-refresh"></i>
                                 </button>
-                                
+
                                 <f:if condition="{backendConfiguration.recordInfoEnabled}">
                                     <button data-uid="{page.uid}" id="slugInfo-{page.uid}" class="btn btn-default slugInfo" title="{f:translate(key:'button.info.title', extensionName: slug)}">
                                         <i class="fa fa-info-circle"></i>
@@ -120,7 +120,7 @@
             </f:for>
         </table>
     </f:widget.paginate>
-        
+
     <f:render partial="SlugNotes"/>
 
 </f:section>
