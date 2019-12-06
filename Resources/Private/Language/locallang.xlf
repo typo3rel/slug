@@ -3,8 +3,8 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-24T09:35:38Z" product-name="slug">
 		<header/>
 		<body>
-                    
-                        <trans-unit id="ext.title">
+
+            <trans-unit id="ext.title">
 				<source>Slug</source>
 			</trans-unit>
 			<trans-unit id="ext.version">
@@ -13,28 +13,28 @@
 			<trans-unit id="ext.note">
 				<source><![CDATA[<p>This extension is in BETA mode. It works, but be careful what you do. You have the power to manipulate all page slugs directly now!</p>]]></source>
 			</trans-unit>
-                        
-                        
+
+
 			<trans-unit id="table.head.uid">
 				<source>Uid</source>
 			</trans-unit>
-                        <trans-unit id="table.head.state">
+            <trans-unit id="table.head.state">
 				<source>State</source>
 			</trans-unit>
-                        <trans-unit id="table.head.language">
+            <trans-unit id="table.head.language">
 				<source>Lang</source>
 			</trans-unit>
-                        <trans-unit id="table.head.title">
+            <trans-unit id="table.head.title">
 				<source>Title of the page</source>
 			</trans-unit>
-                        <trans-unit id="table.head.slug">
+            <trans-unit id="table.head.slug">
 				<source>Slug</source>
 			</trans-unit>
-                        <trans-unit id="table.head.actions">
+            <trans-unit id="table.head.actions">
 				<source>Actions</source>
 			</trans-unit>
-                        
-                        
+
+
                         <trans-unit id="button.save.title">
 				<source>Save slug</source>
 			</trans-unit>
@@ -77,8 +77,8 @@
                         <trans-unit id="button.tree">
 				<source>Tree</source>
 			</trans-unit>
-                        
-                        
+
+
                         <trans-unit id="siteselect.options.others">
 				<source>Other pages on the root level (This function comes with the next version!!)</source>
 			</trans-unit>
@@ -88,8 +88,8 @@
                         <trans-unit id="siteselect.labels.language">
 				<source>Language:</source>
 			</trans-unit>
-                        
-                        
+
+
                         <trans-unit id="notes.success.saved">
 				<source>Successfully saved</source>
 			</trans-unit>
@@ -114,8 +114,8 @@
                         <trans-unit id="notes.generator.after_generating">
 				<source>The slug has been generated, but not saved yet! Please don't forget to click on the save button if you want so save this version of the slug! You can also set 'autoSave' to enable automatic saving of the slug, after generating.</source>
 			</trans-unit>
-                        
-                        
+
+
                         <trans-unit id="filter.form.label.search_key">
 				<source>Find slugs by keyword/s</source>
 			</trans-unit>
@@ -131,7 +131,7 @@
                         <trans-unit id="filter.form.label.action">
 				<source>Action</source>
 			</trans-unit>
-                        
+
                         <trans-unit id="filter.form.select.option.creation_date">
 				<source>Creation Date</source>
 			</trans-unit>
@@ -162,20 +162,20 @@
                         <trans-unit id="filter.form.select.option.ascending">
 				<source>Ascending</source>
 			</trans-unit>
-                        
-                        
+
+
 			<trans-unit id="tx_slug_domain_model_page">
 				<source>Page</source>
 			</trans-unit>
 			<trans-unit id="tx_slug_domain_model_page.slug_lock">
 				<source>Slug Lock</source>
 			</trans-unit>
-                        
-                        
-                        <trans-unit id="recordinfo.no_info_available">
+
+
+            <trans-unit id="recordinfo.no_info_available">
 				<source>No information available for this record</source>
 			</trans-unit>
-                        
+
 		</body>
 	</file>
 </xliff>
