@@ -1,0 +1,54 @@
+{namespace core = TYPO3\CMS\Core\ViewHelpers}
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Seo" />
+
+<f:section name="content">
+
+    <f:flashMessages />
+    <f:render partial="SingleHeader" arguments="{_all}"/>
+
+    <hr>
+
+    <h1>{page.title}</h1>
+
+    <div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Edit</a></li>
+            <li role="presentation"><a href="#socialmedia" aria-controls="socialmedia" role="tab" data-toggle="tab">Social Media</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <input type="text" value="{page.slug}" class="form-control">
+                        <f:render partial="GooglePreview" arguments="{page:page}"/>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="btn-group">
+                            <button class="btn btn-default saveAllPageSlugs" title="{f:translate(key:'button.saveall.title', extensionName: slug)}">
+                                <i class="fa fa-save"></i> {f:translate(key:'button.saveall.label', extensionName: slug)}
+                            </button>
+
+                            <button class="btn btn-default generateAllPageSlugs" title="{f:translate(key:'button.generateall.title', extensionName: slug)}">
+                                <i class="fa fa-refresh"></i> {f:translate(key:'button.generateall.label', extensionName: slug)}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="socialmedia">
+                <f:render partial="FacebookPreview" arguments="{page:page}"/>
+            </div>
+      </div>
+
+    </div>
+
+    <f:render partial="SlugNotes"/>
+
+</f:section>

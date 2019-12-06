@@ -1,0 +1,21 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:be.container>
+
+        <f:be.pageRenderer
+            includeCssFiles="{1: '{f:uri.resource(path:\'Css/Backend.css\')}'}"
+            includeJsFiles="{1: '{f:uri.resource(path:\'Libs/jquery-3.1.1.min.js\')}', 2:'{f:uri.resource(path:\'JavaScript/Slug.js\')}'}"
+            />
+
+            <div class="typo3-fullDoc">
+                <div id="typo3-docbody">
+                    <div id="typo3-inner-docbody">
+                        <f:flashMessages />
+                        <f:render section="content" />
+                        <hr>
+                        &copy; 2019 by <a href="https://simon-koehler.com/?pk_campaign=slug&pk_kwd=slug&pk_source=TYPO3-Extension" target="_blank">Simon Köhler</a>
+                    </div>
+                </div>
+            </div>
+
+    </f:be.container>
+</html>
