@@ -9,6 +9,8 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Backend\Tree\View\PageTreeView;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 
 /*
  * This file was created by Simon Köhler
@@ -151,6 +153,37 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         else{
             $this->addFlashMessage('Error: No Site root found! PageController.php Line 130');
         }
+
+    }
+
+
+    protected function seoAction(){
+
+        $currentPageUid = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder
+           ->getRestrictions()
+           ->removeAll()
+           ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        $statement = $queryBuilder
+           ->select('*')
+           ->from('pages')
+           ->setMaxResults(1)
+           ->where(
+              $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($currentPageUid, \PDO::PARAM_INT))
+           )
+           ->execute();
+
+        $row = $statement->fetch();
+
+        $this->view->assignMultiple([
+            'backendConfiguration' => $this->backendConfiguration,
+            'extEmconf' => $this->helper->getEmConfiguration('slug'),
+            'sites' => (array) $this->sites,
+            'args' => $args,
+            'pageUid' => $currentPageUid,
+            'page' => $row
+        ]);
 
     }
 
