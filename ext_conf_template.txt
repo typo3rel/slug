@@ -35,3 +35,7 @@ recordOrderBy = crdate
 
 # cat=custom records; type=options[DESC,ASC]; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:record.order
 recordOrder = DESC
+
+
+# cat=seo module; type=boolean; label=LLL:EXT:slug/Resources/Private/Language/locallang_be.xlf:seo.enabled
+seoModuleEnabled = 0

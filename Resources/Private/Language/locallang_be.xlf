@@ -15,9 +15,9 @@
 			<trans-unit id="default.recordInfoEnabled">
 				<source>Enable additional record information</source>
 			</trans-unit>
-                        
-                        
-                        <trans-unit id="news.maxentries">
+
+
+            <trans-unit id="news.maxentries">
 				<source>Default max entries for News records</source>
 			</trans-unit>
 			<trans-unit id="news.orderby">
@@ -29,8 +29,8 @@
 			<trans-unit id="news.enabled">
 				<source>News enabled</source>
 			</trans-unit>
-                        
-                        
+
+
 			<trans-unit id="tree.enabled">
 				<source>Tree enabled</source>
 			</trans-unit>
@@ -40,9 +40,9 @@
                         <trans-unit id="tree.root">
 				<source>Tree default root page uid</source>
 			</trans-unit>
-                        
-                        
-                        <trans-unit id="record.enabled">
+
+
+            <trans-unit id="record.enabled">
 				<source>Custom records enabled</source>
 			</trans-unit>
                         <trans-unit id="record.maxentries">
@@ -54,7 +54,12 @@
                         <trans-unit id="record.order">
 				<source>Custom records ordering</source>
 			</trans-unit>
-                        
+
+
+			<trans-unit id="seo.enabled">
+				<source>Enable SEO module</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

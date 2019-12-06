@@ -7,6 +7,16 @@ call_user_func(
 
         if (TYPO3_MODE === 'BE') {
 
+            /***************
+             * Make the extension configuration accessible
+             */
+            $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
+            );
+            $slugConfiguration = $extensionConfiguration->get('slug');
+            
+
+            // The main site module for slug editing
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'SIMONKOEHLER.Slug',
                 'site',
@@ -22,6 +32,26 @@ call_user_func(
                     'labels' => 'LLL:EXT:slug/Resources/Private/Language/locallang_slugs.xlf',
                 ]
             );
+
+            if ($slugConfiguration['seoModuleEnabled']) {
+
+                // Module for single page slug editing
+                \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+                    'SIMONKOEHLER.Slug',
+                    'web',
+                    'slugs',
+                    '',
+                    [
+                        'Page' => 'seo',
+                    ],
+                    [
+                        'access' => 'user,group',
+                        'icon'   => 'EXT:slug/Resources/Public/Icons/slug-be-module.png',
+                        'labels' => 'LLL:EXT:slug/Resources/Private/Language/locallang_slug_seo.xlf',
+                    ]
+                );
+
+            }
 
         }
 
