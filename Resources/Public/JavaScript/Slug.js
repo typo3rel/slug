@@ -204,6 +204,11 @@ jQuery(document).ready(function(){
                     slugInputValue = slugInputField.val();
                     savePageSlug(slugInputValue,slugInputField,uid,$(this));
                 }});
+                $('button.generatePageSlug').on({
+                    click: function(){
+                        generatePageSlug($(this).data('uid'));
+                    }
+                });
                 $('input.slug-input').change(function(){
                     $(this).addClass('has-been-changed');
                     slugExists($(this).val());

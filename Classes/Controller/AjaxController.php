@@ -172,12 +172,13 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $translations = $this->helper->getPageTranslationsByUid($queryParams['uid']);
         $root = BackendUtility::getRecord('pages',$queryParams['uid']);
         $languages = $this->helper->getLanguages();
-        $html .= '<div class="well">';
+        $html = '<div class="well">';
         $html .= '<h2>'.$root['title'].' <small>'.$root['seo_title'].'</small></h2>';
         $html .= '<div class="input-group">'
                 . '<span class="input-group-addon"><i class="fa fa-globe"></i></span>'
                 . '<input type="text" data-uid="'.$root['uid'].'" value="'.$root['slug'].'" class="form-control slug-input page-'.$root['uid'].'">'
                 . '<span class="input-group-btn"><button data-uid="'.$root['uid'].'" id="savePageSlug-'.$root['uid'].'" class="btn btn-default savePageSlug" title="Save slug"><i class="fa fa-save"></i></button></span>'
+	            . ($root['tx_slug_locked'] ? '<span class="input-group-btn"><button data-uid="'.$root['uid'].'" title="Locked slug" class="btn btn-danger"><i class="fa fa-lock"></i></button></span>' : '<span class="input-group-btn"><button data-uid="'.$root['uid'].'" id="generatePageSlug-'.$root['uid'].'" class="btn btn-default generatePageSlug" title="Generate slug"><i class="fa fa-refresh"></i></button></span>')
                 . '</div>';
         foreach ($translations as $page) {
             foreach ($languages as $value) {
