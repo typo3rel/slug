@@ -1,20 +1,15 @@
 <?php
 
-namespace GOCHILLA\Slug\Command;
+namespace SIMONKOEHLER\Slug\Command;
 use Doctrine\DBAL\Driver\Statement;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use GOCHILLA\Slug\Utility\HelperUtility;
+use SIMONKOEHLER\Slug\Utility\HelperUtility;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
-use TYPO3\CMS\Core\Exception\SiteNotFoundException;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Http\HtmlResponse;
-use TYPO3\CMS\Core\Http\JsonResponse;
 
 /**
  * Command class for slug module
@@ -23,7 +18,7 @@ use TYPO3\CMS\Core\Http\JsonResponse;
  *
  * @category   Module
  * @package    Slug
- * @author     Simon Köhler <info@simon-koehler.com>
+ * @author     rene <rel@animate.de>
  * @copyright  2018-2019 rel s.a.
  */
 class GeneratePageSlugCommand extends Command {

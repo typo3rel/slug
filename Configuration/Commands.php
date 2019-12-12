@@ -1,6 +1,6 @@
 <?php
 return [
     'slug:generate' => [
-        'class' => \GOCHILLA\Slug\Command\GeneratePageSlugCommand::class
+        'class' => \SIMONKOEHLER\Slug\Command\GeneratePageSlugCommand::class
     ],
 ];
